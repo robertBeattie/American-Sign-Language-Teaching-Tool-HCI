@@ -6,7 +6,7 @@ var z = 0;
 var rawXMin = -250;
 var rawXMax = 250;
 
-var rawYMin = 25;
+var rawYMin = 75;
 var rawYMax = 300;
 
 Leap.loop(controllerOptions, function(frame)
