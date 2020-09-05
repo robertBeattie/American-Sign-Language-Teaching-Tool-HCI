@@ -1,6 +1,7 @@
 var controllerOptions = {};
 var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
+var z = 0;
 
 
 Leap.loop(controllerOptions, function(frame)
@@ -29,6 +30,10 @@ function HandleHand(hand){
         });     
 }
 function HandleFinger(finger){
-        if(finger.id % 10 === 1)
-             console.log(finger.tipPosition);  
+    //checks if finger id {0-4} ends in 1 if so its an index finger
+        if(finger.id % 10 === 1){
+           x = finger.tipPosition.x;  
+           y = finger.tipPosition.y;  
+           z = finger.tipPosition.z;  
+        }
 }
