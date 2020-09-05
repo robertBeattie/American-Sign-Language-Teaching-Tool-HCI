@@ -3,11 +3,11 @@ var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
 var z = 0;
 
-var rawXMin = 200;
-var rawXMax = -200;
+var rawXMin = -250;
+var rawXMax = 250;
 
-var rawYMin = 400;
-var rawYMax = 0;
+var rawYMin = 25;
+var rawYMax = 300;
 
 Leap.loop(controllerOptions, function(frame)
 { 
@@ -36,12 +36,19 @@ function HandleFinger(finger){
            z = finger.tipPosition[2]; 
 
            //check bounds
-           if(x < rawXMax){ x = rawXMax;}
-           if(x > rawXMin){ x = rawXMin;}
-           if(y < rawYMax){ y = rawYMax;}
-           if(y > rawYMin){ y = rawYMin;}
+           if(x > rawXMax){ x = rawXMax;}
+           if(x < rawXMin){ x = rawXMin;}
+           x = Scale(x, rawXMin, rawXMax, 0, window.innerWidth);
+           if(y > rawYMax){ y = rawYMax;}
+           if(y < rawYMin){ y = rawYMin;}
+           y = Scale(y, rawYMin, rawYMax, 0, window.innerHeight);
 
-           console.log(finger);
-           var cir = circle(x + window.innerWidth / 2,-y *2+ window.innerHeight ,50);   
+           console.log(x + "," + y);
+           var cir = circle(x,-y + innerHeight,50);   
+
         }
+}
+
+function Scale (OldValue, OldMin, OldMax, NewMin, NewMax){
+    return((((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin);
 }
