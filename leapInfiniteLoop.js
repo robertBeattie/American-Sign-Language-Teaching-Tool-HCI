@@ -29,5 +29,5 @@ function HandleHand(hand){
 }
 function HandleFinger(finger){
         if(finger.id % 10 === 1)
-             console.log(finger);  
+             console.log(finger.tipPosition);  
 }
