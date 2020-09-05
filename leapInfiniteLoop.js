@@ -16,6 +16,7 @@ Leap.loop(controllerOptions, function(frame)
        var hand = frame.hands[0];
        var fingers = hand.fingers;
        fingers.forEach( element => {
+           if(element.id % 10 === 1)
         console.log(element);
        });
        
