@@ -9,6 +9,6 @@ Leap.loop(controllerOptions, function(frame)
     var cir = circle(x,y,50);
     //adds -1 or 0 or 1 to x
     x += Math.floor(Math.random() * 3) -1;
-
+    y += Math.floor(Math.random() * 3) -1;
 }
 );
