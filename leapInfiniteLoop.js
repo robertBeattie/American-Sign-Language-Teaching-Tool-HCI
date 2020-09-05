@@ -23,8 +23,11 @@ function HandleFrame(frame){
 }
 function HandleHand(hand){
         var fingers = hand.fingers;
-        fingers.forEach( element => {
-            if(element.id % 10 === 1)
-                 console.log(element);
+        fingers.forEach( finger => {
+            HandleFinger(finger);
         });     
+}
+function HandleFinger(finger){
+        if(finger.id % 10 === 1)
+             console.log(finger);  
 }
