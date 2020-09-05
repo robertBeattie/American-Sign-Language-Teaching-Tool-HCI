@@ -12,7 +12,10 @@ Leap.loop(controllerOptions, function(frame)
     x += Math.floor(Math.random() * 3) -1;
     y += Math.floor(Math.random() * 3) -1;
     */
-   if(frame.hands.length === 1)
-    console.log(frame.hands[0]);
+   if(frame.hands.length === 1){
+       var hand = frame.hands[0];
+       console.log(hand);
+   }
+    
 }
 );
