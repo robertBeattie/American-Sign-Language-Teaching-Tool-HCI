@@ -3,6 +3,11 @@ var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
 var z = 0;
 
+var rawXMin = 100;
+var rawXMax = 0;
+
+var rawYMin = 100;
+var rawYMax = 0;
 
 Leap.loop(controllerOptions, function(frame)
 { 
@@ -31,6 +36,6 @@ function HandleFinger(finger){
            z = finger.tipPosition[2];  
 
            console.log(finger);
-           var cir = circle(x + window.innerWidth / 2,-y+ window.innerHeight,50);   
+           var cir = circle(x + window.innerWidth / 2,-y *2+ window.innerHeight ,50);   
         }
 }
