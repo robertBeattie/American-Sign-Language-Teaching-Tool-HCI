@@ -31,6 +31,6 @@ function HandleFinger(finger){
            z = finger.tipPosition[2];  
 
            console.log(finger);
-           var cir = circle(x + window.innerWidth / 2,z + window.innerHeight / 2,y);   
+           var cir = circle(x + window.innerWidth / 2,-y+ window.innerHeight,50);   
         }
 }
