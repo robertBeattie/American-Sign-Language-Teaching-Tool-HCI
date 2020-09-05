@@ -13,6 +13,6 @@ Leap.loop(controllerOptions, function(frame)
     y += Math.floor(Math.random() * 3) -1;
     */
    if(frame.hands.length === 1)
-    console.log(frame.hands);
+    console.log(frame.hands[0]);
 }
 );
