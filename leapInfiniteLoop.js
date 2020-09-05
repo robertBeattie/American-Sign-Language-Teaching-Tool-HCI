@@ -5,7 +5,11 @@ var y = window.innerHeight / 2;
 
 Leap.loop(controllerOptions, function(frame)
 {
-    /*
+    HandleFrame(frame);  
+});
+
+function HandleFrame(frame){
+/*
     clear();
     var cir = circle(x,y,50);
     //adds -1 or 0 or 1 to x
@@ -13,18 +17,14 @@ Leap.loop(controllerOptions, function(frame)
     y += Math.floor(Math.random() * 3) -1;
     */
    if(frame.hands.length === 1){
-       var hand = frame.hands[0];
-       var fingers = hand.fingers;
-       fingers.forEach( element => {
-           if(element.id % 10 === 1)
-                console.log(element);
-       });
-       
-   }
-    
+    var hand = frame.hands[0];
+    HandleHand(hand);    
+    }
 }
-);
-
-function HandleFrame(){
-    
+function HandleHand(hand){
+        var fingers = hand.fingers;
+        fingers.forEach( element => {
+            if(element.id % 10 === 1)
+                 console.log(element);
+        });     
 }
