@@ -5,15 +5,9 @@ var z = 0;
 
 
 Leap.loop(controllerOptions, function(frame)
-{
-    
+{ 
     clear();
-    /*
-    var cir = circle(x,y,50);
-    //adds -1 or 0 or 1 to x
-    x += Math.floor(Math.random() * 3) -1;
-    y += Math.floor(Math.random() * 3) -1;
-    */
+     
     HandleFrame(frame);  
 });
 
@@ -32,8 +26,11 @@ function HandleHand(hand){
 function HandleFinger(finger){
     //checks if finger id {0-4} ends in 1 if so its an index finger
         if(finger.id % 10 === 1){
-           x = finger.tipPosition.x;  
-           y = finger.tipPosition.y;  
-           z = finger.tipPosition.z;  
+           x = finger.tipPosition[0];  
+           y = finger.tipPosition[1];  
+           z = finger.tipPosition[2];  
+
+           console.log(finger);
+           var cir = circle(x + window.innerWidth / 2,z + window.innerHeight / 2,y);   
         }
 }
