@@ -53,7 +53,9 @@ function HandleFinger(finger){
 }
 
 function HandleBone(bone){
-    
+    x = bone.prevJoint[0];  
+    y = bone.prevJoint[1];  
+    z = bone.prevJoint[2]; 
     console.log(bone);
 }
 function Scale (OldValue, OldMin, OldMax, NewMin, NewMax){
