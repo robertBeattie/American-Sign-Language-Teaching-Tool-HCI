@@ -31,11 +31,11 @@ function HandleHand(hand){
 function HandleFinger(finger){
     var bones = finger.bones;
     bones.forEach( bone => {
-        HandleBone(bone);
+        HandleBone(bone, (5 - bone.type));
     });          
 }
 
-function HandleBone(bone){
+function HandleBone(bone, stroke){
     px = bone.prevJoint[0];  
     py = bone.prevJoint[1];  
     pz = bone.prevJoint[2]; 
@@ -47,10 +47,11 @@ function HandleBone(bone){
     nz = bone.nextJoint[2]; 
     
     [nx,ny] = TransformCoordinates(nx,ny);
-    
+
     // console.log(x + "," + y);
     //var cir = circle(px,-py + innerHeight,50);  
     //line(px,py,nx,ny); upside down
+    strokeWeight(stroke);
     line(nx,-ny + innerHeight,px, -py + innerHeight);
 
 }
