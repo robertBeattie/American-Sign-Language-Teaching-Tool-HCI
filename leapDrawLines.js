@@ -32,11 +32,13 @@ function HandleFinger(finger){
     var bones = finger.bones;
     bones.forEach( bone => {
         HandleBone(bone);
-    });   
-    /*
-    x = finger.tipPosition[0];  
-    y = finger.tipPosition[1];  
-    z = finger.tipPosition[2]; 
+    });          
+}
+
+function HandleBone(bone){
+    x = bone.prevJoint[0];  
+    y = bone.prevJoint[1];  
+    z = bone.prevJoint[2]; 
 
     //check bounds
     if(x > rawXMax){ x = rawXMax;}
@@ -47,16 +49,8 @@ function HandleFinger(finger){
     y = Scale(y, rawYMin, rawYMax, 0, window.innerHeight);
 
     console.log(x + "," + y);
-    var cir = circle(x,-y + innerHeight,50);   
-    */
-        
-}
-
-function HandleBone(bone){
-    x = bone.prevJoint[0];  
-    y = bone.prevJoint[1];  
-    z = bone.prevJoint[2]; 
-    console.log("bone joints locations"+ x + ", " + y + ", " + z);
+    var cir = circle(x,-y + innerHeight,50);  
+    
 }
 function Scale (OldValue, OldMin, OldMax, NewMin, NewMax){
     return((((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin);
