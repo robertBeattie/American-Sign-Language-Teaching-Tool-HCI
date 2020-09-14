@@ -23,16 +23,26 @@ function HandleFrame(frame){
     }
 }
 function HandleHand(hand){
+    //Distal phalanges tips
+    //Intermediate phalanges middle
+    //Proximal phalanges cloest to palm
+    //Metacapals in palm
     var fingers = hand.fingers;
-    fingers.forEach( finger => {
-        HandleFinger(finger);
-    });     
+    for (var i=3; i >= 0; i--){
+        fingers.forEach( finger => {
+            HandleFinger(finger, i);
+        });
+    }
 }
-function HandleFinger(finger){
+function HandleFinger(finger, boneType){
+    
     var bones = finger.bones;
     bones.forEach( bone => {
-        HandleBone(bone, (5 - bone.type));
-    });          
+        if(bone.type == boneType){
+            HandleBone(bone, (5 - bone.type));
+        }
+    }); 
+
 }
 
 function HandleBone(bone, strokeW){
