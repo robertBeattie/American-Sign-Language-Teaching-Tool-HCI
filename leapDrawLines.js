@@ -53,6 +53,7 @@ function HandleFinger(finger){
 }
 
 function HandleBone(bone){
+    
     console.log(bone);
 }
 function Scale (OldValue, OldMin, OldMax, NewMin, NewMax){
