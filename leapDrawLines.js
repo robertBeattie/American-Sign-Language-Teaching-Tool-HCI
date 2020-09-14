@@ -44,7 +44,7 @@ function HandleFinger(finger){
     y = Scale(y, rawYMin, rawYMax, 0, window.innerHeight);
 
     console.log(x + "," + y);
-    var cir = circle(x,-y + innerHeight,50);   
+    //var cir = circle(x,-y + innerHeight,50);   
 
         
 }
