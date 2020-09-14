@@ -29,8 +29,11 @@ function HandleHand(hand){
     });     
 }
 function HandleFinger(finger){
-    //checks if finger id {0-4} ends in 1 if so its an index finger
-        
+    var bones = finger.bones;
+    bones.forEach( bone => {
+        HandleBone(bone);
+    });   
+    /*
     x = finger.tipPosition[0];  
     y = finger.tipPosition[1];  
     z = finger.tipPosition[2]; 
@@ -44,11 +47,14 @@ function HandleFinger(finger){
     y = Scale(y, rawYMin, rawYMax, 0, window.innerHeight);
 
     console.log(x + "," + y);
-    //var cir = circle(x,-y + innerHeight,50);   
-
+    var cir = circle(x,-y + innerHeight,50);   
+    */
         
 }
 
+function HandleBone(bone){
+    console.log(bone);
+}
 function Scale (OldValue, OldMin, OldMax, NewMin, NewMax){
     return((((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin);
 }
