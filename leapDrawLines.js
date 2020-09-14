@@ -35,7 +35,7 @@ function HandleFinger(finger){
     });          
 }
 
-function HandleBone(bone, stroke){
+function HandleBone(bone, strokeW){
     px = bone.prevJoint[0];  
     py = bone.prevJoint[1];  
     pz = bone.prevJoint[2]; 
@@ -51,7 +51,8 @@ function HandleBone(bone, stroke){
     // console.log(x + "," + y);
     //var cir = circle(px,-py + innerHeight,50);  
     //line(px,py,nx,ny); upside down
-    strokeWeight(stroke);
+    stroke((strokeW * 35));
+    strokeWeight(strokeW);
     line(nx,-ny + innerHeight,px, -py + innerHeight);
 
 }
