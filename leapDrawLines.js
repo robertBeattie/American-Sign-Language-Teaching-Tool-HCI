@@ -56,7 +56,7 @@ function HandleBone(bone){
     x = bone.prevJoint[0];  
     y = bone.prevJoint[1];  
     z = bone.prevJoint[2]; 
-    console.log(bone);
+    console.log("bone joints locations"+ x + ", " + y + ", " + z);
 }
 function Scale (OldValue, OldMin, OldMax, NewMin, NewMax){
     return((((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin);
