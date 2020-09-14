@@ -36,21 +36,35 @@ function HandleFinger(finger){
 }
 
 function HandleBone(bone){
-    x = bone.prevJoint[0];  
-    y = bone.prevJoint[1];  
-    z = bone.prevJoint[2]; 
+    px = bone.prevJoint[0];  
+    py = bone.prevJoint[1];  
+    pz = bone.prevJoint[2]; 
 
     //check bounds
-    if(x > rawXMax){ x = rawXMax;}
-    if(x < rawXMin){ x = rawXMin;}
-    x = Scale(x, rawXMin, rawXMax, 0, window.innerWidth);
-    if(y > rawYMax){ y = rawYMax;}
-    if(y < rawYMin){ y = rawYMin;}
-    y = Scale(y, rawYMin, rawYMax, 0, window.innerHeight);
+    if(px > rawXMax){ px = rawXMax;}
+    if(px < rawXMin){ px = rawXMin;}
+    px = Scale(px, rawXMin, rawXMax, 0, window.innerWidth);
+    if(py > rawYMax){ py = rawYMax;}
+    if(py < rawYMin){ py = rawYMin;}
+    py = Scale(py, rawYMin, rawYMax, 0, window.innerHeight);
 
-    console.log(x + "," + y);
-    var cir = circle(x,-y + innerHeight,50);  
-    
+    nx = bone.nextJoint[0];  
+    ny = bone.nextJoint[1];  
+    nz = bone.nextJoint[2]; 
+    //check bounds
+    if(nx > rawXMax){ nx = rawXMax;}
+    if(nx < rawXMin){ nx = rawXMin;}
+    nx = Scale(nx, rawXMin, rawXMax, 0, window.innerWidth);
+    if(ny > rawYMax){ ny = rawYMax;}
+    if(ny < rawYMin){ ny = rawYMin;}
+    ny = Scale(ny, rawYMin, rawYMax, 0, window.innerHeight);
+
+
+    // console.log(x + "," + y);
+    //var cir = circle(px,-py + innerHeight,50);  
+    //line(px,py,nx,ny); upside down
+    line(nx,-ny + innerHeight,px, -py + innerHeight);
+
 }
 function Scale (OldValue, OldMin, OldMax, NewMin, NewMax){
     return((((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin);
