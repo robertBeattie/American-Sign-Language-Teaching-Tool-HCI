@@ -9,6 +9,9 @@ var rawXMax = 250;
 var rawYMin = 75;
 var rawYMax = 300;
 
+var previousNumHands = 0;
+var currentNumHands = 0;
+
 Leap.loop(controllerOptions, function(frame)
 { 
     clear();
