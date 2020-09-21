@@ -14,12 +14,10 @@ var currentNumHands = 0;
 
 Leap.loop(controllerOptions, function(frame)
 { 
-    console.log("pervious: "+ previousNumHands + " currentNumHands: " + currentNumHands + "\n");
-    previousNumHands = currentNumHands;
     currentNumHands = frame.hands.length;
-    clear();
-     
+    //clear();
     HandleFrame(frame);  
+    previousNumHands = currentNumHands;
 });
 
 function HandleFrame(frame){
