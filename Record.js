@@ -87,7 +87,7 @@ function HandleBone(bone, strokeW){
     line(nx,-ny + innerHeight,px, -py + innerHeight);
 
 }
-function RecordData(){
+function RecordData(fingerIndex){
     if(previousNumHands == 2 && currentNumHands == 1){
         background(51);
     }
