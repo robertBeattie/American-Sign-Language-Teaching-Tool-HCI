@@ -62,7 +62,7 @@ function HandleFinger(finger, boneType){
 
 }
 
-function HandleBone(bone, strokeW){
+function HandleBone(bone, strokeW, fingerIndex){
     px = bone.prevJoint[0];  
     py = bone.prevJoint[1];  
     pz = bone.prevJoint[2]; 
@@ -87,7 +87,7 @@ function HandleBone(bone, strokeW){
     line(nx,-ny + innerHeight,px, -py + innerHeight);
 
 }
-function RecordData(fingerIndex){
+function RecordData(){
     if(previousNumHands == 2 && currentNumHands == 1){
         background(51);
     }
