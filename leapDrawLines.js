@@ -62,7 +62,7 @@ function HandleBone(bone, strokeW){
     //var cir = circle(px,-py + innerHeight,50);  
     //line(px,py,nx,ny); upside down
     stroke((strokeW * 35));
-    strokeWeight(strokeW);
+    strokeWeight(strokeW * 10);
     line(nx,-ny + innerHeight,px, -py + innerHeight);
 
 }
