@@ -17,6 +17,7 @@ Leap.loop(controllerOptions, function(frame)
     currentNumHands = frame.hands.length;
     clear();
     HandleFrame(frame);  
+    RecordData();
     previousNumHands = currentNumHands;
 });
 
@@ -25,6 +26,13 @@ function HandleFrame(frame){
     var hand = frame.hands[0];
     HandleHand(hand);    
     }
+    //adding a second hand
+    /*
+    if(frame.hands.length == 2){
+        var hand = frame.hands[1];
+        HandleHand(hand);    
+    }
+    */
 }
 function HandleHand(hand){
     //Distal phalanges tips
@@ -74,6 +82,12 @@ function HandleBone(bone, strokeW){
     line(nx,-ny + innerHeight,px, -py + innerHeight);
 
 }
+function RecordData(){
+    if(previousNumHands == 2 && currentNumHands == 1){
+        background(51);
+    }
+}
+
 function TransformCoordinates (x,y){
     //check bounds
     if(x > rawXMax){ x = rawXMax;}
