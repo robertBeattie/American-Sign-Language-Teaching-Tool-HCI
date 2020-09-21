@@ -21,7 +21,7 @@ Leap.loop(controllerOptions, function(frame)
 });
 
 function HandleFrame(frame){
-   if(frame.hands.length === 1){
+   if(frame.hands.length >= 1){
     var hand = frame.hands[0];
     HandleHand(hand);    
     }
@@ -63,7 +63,12 @@ function HandleBone(bone, strokeW){
     [nx,ny] = TransformCoordinates(nx,ny);
     
     //color
-    stroke("".concat('rgb(0,',(strokeW * 35).toString(),',0)'));
+    if(currentNumHands == 1){
+        stroke("".concat('rgb(0,',(strokeW * 35).toString(),',0)'));
+    }else if(currentNumHands == 2){
+        stroke("".concat('rgb(',(strokeW * 35).toString(),',0,0)'));
+    }
+    
     //line width
     strokeWeight(strokeW * 10);
     line(nx,-ny + innerHeight,px, -py + innerHeight);
