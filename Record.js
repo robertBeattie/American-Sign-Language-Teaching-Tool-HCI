@@ -16,11 +16,14 @@ var oneFrameOfData = nj.zeros([5]);
 
 Leap.loop(controllerOptions, function(frame)
 { 
+    console.log(oneFrameOfData.toString());
+    /*
     currentNumHands = frame.hands.length;
     clear();
     HandleFrame(frame);  
     RecordData();
     previousNumHands = currentNumHands;
+    */
 });
 
 function HandleFrame(frame){
