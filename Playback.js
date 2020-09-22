@@ -23,7 +23,10 @@ function draw(){
     clear();
     for(var i =0; i < oneFrameOfData.shape[0]; i++){
         for(var j =0; j < oneFrameOfData.shape[1]; j++){
-            console.log(oneFrameOfData.get(i,j,0));
+            var StartX = oneFrameOfData.get(i,j,0);
+            var StartY = oneFrameOfData.get(i,j,1);
+            console.log(StartX);
+            
         }
     }
     
