@@ -17,13 +17,13 @@ var oneFrameOfData = nj.zeros([5]);
 Leap.loop(controllerOptions, function(frame)
 { 
     console.log(oneFrameOfData.toString());
-    /*
+    
     currentNumHands = frame.hands.length;
     clear();
     HandleFrame(frame);  
     RecordData();
     previousNumHands = currentNumHands;
-    */
+    
 });
 
 function HandleFrame(frame){
@@ -56,7 +56,7 @@ function HandleFinger(finger, boneType){
     var bones = finger.bones;
     bones.forEach( bone => {
         if(bone.type == boneType){
-            HandleBone(bone, (5 - bone.type));
+            HandleBone(bone, (5 - bone.type), finger.id % 10);
         }
     }); 
 
@@ -85,7 +85,8 @@ function HandleBone(bone, strokeW, fingerIndex){
     //line width
     strokeWeight(strokeW * 10);
     line(nx,-ny + innerHeight,px, -py + innerHeight);
-
+    var sumBones = px + py + pz + nx + ny + nz;
+    oneFrameOfData.set(fingerIndex, sumBones);
 }
 function RecordData(){
     if(previousNumHands == 2 && currentNumHands == 1){
