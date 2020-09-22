@@ -53,6 +53,16 @@ function draw(){
             var EndZ = oneFrameOfData.get(i,j,5);
 
             line(StartX, StartY, EndX, EndY);
+
+            var StartX = anotherFrameOfData.get(i,j,0);
+            var StartY = anotherFrameOfData.get(i,j,1);
+            var StartZ = anotherFrameOfData.get(i,j,2);
+            
+            var EndX = anotherFrameOfData.get(i,j,3);
+            var EndY = anotherFrameOfData.get(i,j,4);
+            var EndZ = anotherFrameOfData.get(i,j,5);
+
+            line(StartX, StartY, EndX, EndY);
         }
     }
     
