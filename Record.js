@@ -85,8 +85,12 @@ function HandleBone(bone, strokeW, fingerIndex){
     //line width
     strokeWeight(strokeW * 10);
     line(nx,-ny + innerHeight,px, -py + innerHeight);
-    var sumBones = px + py + pz + nx + ny + nz;
-    oneFrameOfData.set(fingerIndex,bone.type,sumBones);
+    oneFrameOfData.set(fingerIndex,bone.type,0,px);
+    oneFrameOfData.set(fingerIndex,bone.type,1,py);
+    oneFrameOfData.set(fingerIndex,bone.type,2,pz);
+    oneFrameOfData.set(fingerIndex,bone.type,3,nx);
+    oneFrameOfData.set(fingerIndex,bone.type,4,nx);
+    oneFrameOfData.set(fingerIndex,bone.type,5,nx);
 }
 function RecordData(){
     if(previousNumHands == 2 && currentNumHands == 1){
