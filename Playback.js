@@ -25,7 +25,12 @@ function draw(){
         for(var j =0; j < oneFrameOfData.shape[1]; j++){
             var StartX = oneFrameOfData.get(i,j,0);
             var StartY = oneFrameOfData.get(i,j,1);
-            console.log(StartX);
+            var StartZ = oneFrameOfData.get(i,j,2);
+            
+            var EndX = oneFrameOfData.get(i,j,3);
+            var EndY = oneFrameOfData.get(i,j,4);
+            var EndZ = oneFrameOfData.get(i,j,5);
+            //console.log(StartX, StartY, StartZ, EndX, EndY, EndZ);
             
         }
     }
