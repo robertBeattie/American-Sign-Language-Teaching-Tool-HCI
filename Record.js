@@ -12,7 +12,7 @@ var rawYMax = 300;
 var previousNumHands = 0;
 var currentNumHands = 0;
 
-var oneFrameOfData = nj.zeros([5]);
+var oneFrameOfData = nj.zeros([5,4]);
 
 Leap.loop(controllerOptions, function(frame)
 { 
@@ -86,7 +86,7 @@ function HandleBone(bone, strokeW, fingerIndex){
     strokeWeight(strokeW * 10);
     line(nx,-ny + innerHeight,px, -py + innerHeight);
     var sumBones = px + py + pz + nx + ny + nz;
-    oneFrameOfData.set(fingerIndex, sumBones);
+    oneFrameOfData.set(fingerIndex,bone.type,sumBones);
 }
 function RecordData(){
     if(previousNumHands == 2 && currentNumHands == 1){
