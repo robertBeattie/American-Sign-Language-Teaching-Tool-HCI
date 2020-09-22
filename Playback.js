@@ -21,5 +21,5 @@ oneFrameOfData = nj.array([[[ 605.44705, 387.65599,   241.705, 605.44705, 605.44
 
 function draw(){
     clear();
-    console.log("hey");
+    console.log(oneFrameOfData);
 }
