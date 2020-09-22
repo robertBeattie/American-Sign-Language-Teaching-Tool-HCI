@@ -12,7 +12,7 @@ var rawYMax = 300;
 var previousNumHands = 0;
 var currentNumHands = 0;
 
-var oneFrameOfData = nj.zeros([5,4]);
+var oneFrameOfData = nj.zeros([5,4,6]);
 
 Leap.loop(controllerOptions, function(frame)
 { 
