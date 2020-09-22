@@ -30,8 +30,8 @@ function draw(){
             var EndX = oneFrameOfData.get(i,j,3);
             var EndY = oneFrameOfData.get(i,j,4);
             var EndZ = oneFrameOfData.get(i,j,5);
-            console.log(StartX, StartY, StartZ, EndX, EndY, EndZ);
             
+            line(StartX, StartY, EndX, EndY);
         }
     }
     
