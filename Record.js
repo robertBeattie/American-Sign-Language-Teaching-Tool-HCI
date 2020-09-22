@@ -87,8 +87,8 @@ function HandleBone(bone, strokeW, fingerIndex){
     oneFrameOfData.set(fingerIndex,bone.type,1,py);
     oneFrameOfData.set(fingerIndex,bone.type,2,pz);
     oneFrameOfData.set(fingerIndex,bone.type,3,nx);
-    oneFrameOfData.set(fingerIndex,bone.type,4,nx);
-    oneFrameOfData.set(fingerIndex,bone.type,5,nx);
+    oneFrameOfData.set(fingerIndex,bone.type,4,ny);
+    oneFrameOfData.set(fingerIndex,bone.type,5,nz);
 }
 function RecordData(){
     if(previousNumHands == 2 && currentNumHands == 1){
