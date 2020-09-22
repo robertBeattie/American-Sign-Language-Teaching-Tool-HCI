@@ -15,9 +15,7 @@ var currentNumHands = 0;
 var oneFrameOfData = nj.zeros([5,4,6]);
 
 Leap.loop(controllerOptions, function(frame)
-{ 
-    console.log(oneFrameOfData.toString());
-    
+{     
     currentNumHands = frame.hands.length;
     clear();
     HandleFrame(frame);  
@@ -94,6 +92,7 @@ function HandleBone(bone, strokeW, fingerIndex){
 }
 function RecordData(){
     if(previousNumHands == 2 && currentNumHands == 1){
+        console.log(oneFrameOfData.toString());
         background(51);
     }
 }
