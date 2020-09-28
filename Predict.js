@@ -154,9 +154,11 @@ var irisData = nj.array([
 var frameIndex = 0;
 var frameflip = 0;
 var trainingCompleted = false;
+var numSamples = irisData.shape[0];
 function draw(){
     clear();
     console.log(irisData + "");
+    console.log("Number of Samples : " + numSamples + "\n");
     if(!trainingCompleted){
         Train();
     }
