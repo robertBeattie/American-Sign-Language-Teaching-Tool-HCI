@@ -165,7 +165,7 @@ function draw(){
     if(!trainingCompleted){
         Train();
     }
-    //Test();
+    Test();
 
     /*
     if(frameIndex >= 100){
@@ -223,9 +223,9 @@ function Test(){
     for(var i =0; i < numSamples; i+=2){
         var currentFeatures = irisData.pick(i);
         var currentLabel = currentFeatures.get(currentFeatures.shape -1);
-        
+        var predictedLabel = knnClassifier.classify(currentFeatures.tolist());
         var correct = "Incorrect";
-        if(true){
+        if(predictedLabel == currentLabel){
             correct = "Correct";
         }
         console.log("index " + i + ", row " +currentFeatures.toString()+ ", Guess " + correct);
