@@ -233,4 +233,7 @@ function GotResults(err, result){
     console.log(testingSampleIndex + ": " + result.label);
     
     testingSampleIndex +=2;
+    if(testingSampleIndex >= 150){
+        testingSampleIndex = 1;
+    }
 }
