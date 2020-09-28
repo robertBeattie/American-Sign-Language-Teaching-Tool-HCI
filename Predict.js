@@ -252,6 +252,18 @@ function DrawCircles() {
         }else{
             fill('green');
         }
+
+        if(i % 2 == 0){
+            stroke('black');
+        }else{
+            if(c == 0){
+                stroke('red');
+            }else if (c == 1){
+                stroke('blue');
+            }else{
+                stroke('green');
+            }
+        }
         //console.log(i,x,y);
         circle(x * 100,y * 100,8);
     }
