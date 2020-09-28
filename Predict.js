@@ -150,6 +150,7 @@ var irisData = nj.array([
     [	6.2	,	3.4	,	5.4	,	2.3	,	],
     [	5.9	,	3	,	5.1	,	1.8	,	],
 ]); // end of iris data
+const knnClassifier = ml5.KNNClassifier();
 
 var frameIndex = 0;
 var frameflip = 0;
