@@ -158,13 +158,11 @@ var numSamples = irisData.shape[0];
 var numFeatures = irisData.shape[1];
 function draw(){
     clear();
-    console.log(irisData + "");
-    console.log("Number of Samples : " + numSamples + "\n");
-    console.log("Number of Features : " + numFeatures + "\n");
+    
     if(!trainingCompleted){
         Train();
     }
-    Test();
+    //Test();
 
     /*
     if(frameIndex >= 100){
