@@ -205,7 +205,8 @@ function draw(){
 function Train(){
     console.log("I am being trained");
     for(var i =0; i < numSamples; i+=2){
-        console.log(i + ": " + irisData.pick(i).toString());
+        var currentFeatures = irisData.pick(i);
+        console.log(i + ": " + currentFeatures.toString());
     }
 
     trainingCompleted = true;
