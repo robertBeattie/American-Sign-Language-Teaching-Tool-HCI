@@ -37,3 +37,11 @@ function draw(){
     }
     frameIndex++;
 }
+
+function Train(){
+    console.log("I am being trained");
+}
+
+function Test(){
+    console.log("I am being test");
+}
