@@ -206,7 +206,8 @@ function Train(){
     console.log("I am being trained");
     for(var i =0; i < numSamples; i+=2){
         var currentFeatures = irisData.pick(i);
-        console.log(i + ": " + currentFeatures.toString());
+        var currentLabel = currentFeatures.get(currentFeatures.shape -1);
+        console.log(i + ": " + irisData.pick(i)+", "+ currentFeatures.toString() + ", " + currentLabel);
     }
 
     trainingCompleted = true;
