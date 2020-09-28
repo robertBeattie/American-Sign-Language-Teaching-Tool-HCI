@@ -204,9 +204,14 @@ function draw(){
 
 function Train(){
     console.log("I am being trained");
+    for(var i =0; i <= numSamples; i+=2){
+        console.log(i);
+    }
+
     trainingCompleted = true;
 }
 
 function Test(){
     console.log("I am being test");
+  
 }
