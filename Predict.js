@@ -153,6 +153,7 @@ var irisData = varirisData=nj.array([
 ]);// end of iris data
 
 const knnClassifier = ml5.KNNClassifier();
+var testingSampleIndex = 1;
 
 var frameIndex = 0;
 var frameflip = 0;
@@ -220,12 +221,12 @@ function Train(){
 
 function Test(){
     console.log("I am being test");
-    for(var i =0; i < numSamples; i+=2){
-        var currentFeatures = irisData.pick(i);
-        var currentLabel = currentFeatures.get(currentFeatures.shape -1);
-        var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
-        //console.log("index " + i + ", row " +currentFeatures.toString()+", Predicted " + predictedLabel + ", Current " + currentLabel);  
-    }
+
+    var currentFeatures = irisData.pick(i);
+    var currentLabel = currentFeatures.get(currentFeatures.shape -1);
+    var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
+    //console.log("index " + i + ", row " +currentFeatures.toString()+", Predicted " + predictedLabel + ", Current " + currentLabel);  
+
 }
 
 function GotResults(err, result){
