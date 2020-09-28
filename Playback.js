@@ -2,6 +2,8 @@ var frameIndex = 0;
 var frameflip = 0;
 function draw(){
     clear();
+    Train();
+    Test();
     if(frameIndex >= 100){
         frameIndex = 0;
         if(frameflip == 0){
