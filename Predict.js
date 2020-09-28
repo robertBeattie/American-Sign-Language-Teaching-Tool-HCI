@@ -152,6 +152,9 @@ var irisData = varirisData=nj.array([
     
 ]);// end of iris data
 
+
+
+
 const knnClassifier = ml5.KNNClassifier();
 var testingSampleIndex = 1;
 
@@ -160,6 +163,8 @@ var frameflip = 0;
 var trainingCompleted = false;
 var numSamples = irisData.shape[0];
 var numFeatures = irisData.shape[1];
+
+var predictedClassLabels = nj.array([numSamples]).zeros();
 function draw(){
     clear();
     
@@ -231,7 +236,7 @@ function Test(){
 
 function GotResults(err, result){
     //console.log(testingSampleIndex + ": " + result.label);
-    
+    predictedClassLabels[testingSampleIndex] = result.label;
     testingSampleIndex +=2;
     if(testingSampleIndex >= 150){
         testingSampleIndex = 1;
