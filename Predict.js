@@ -1,6 +1,6 @@
 var frameIndex = 0;
 var frameflip = 0;
-var trainingCompleted = true;
+var trainingCompleted = false;
 function draw(){
     clear();
     if(!trainingCompleted){
@@ -46,6 +46,7 @@ function draw(){
 
 function Train(){
     console.log("I am being trained");
+    trainingCompleted = true;
 }
 
 function Test(){
