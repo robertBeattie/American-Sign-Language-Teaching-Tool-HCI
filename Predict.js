@@ -155,10 +155,12 @@ var frameIndex = 0;
 var frameflip = 0;
 var trainingCompleted = false;
 var numSamples = irisData.shape[0];
+var numFeatures = irisData.shape[1];
 function draw(){
     clear();
     console.log(irisData + "");
     console.log("Number of Samples : " + numSamples + "\n");
+    console.log("Number of Features : " + numFeatures + "\n");
     if(!trainingCompleted){
         Train();
     }
