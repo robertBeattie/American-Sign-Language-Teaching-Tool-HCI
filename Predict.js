@@ -167,7 +167,7 @@ function draw(){
         Train();
     }
     Test();
-
+    DrawCircles();
     /*
     if(frameIndex >= 100){
         frameIndex = 0;
@@ -207,11 +207,11 @@ function draw(){
 }
 
 function Train(){
-    console.log("I am being trained");
+    //console.log("I am being trained");
     for(var i =1; i < numSamples; i+=2){
         var currentFeatures = irisData.pick(i);
         var currentLabel = currentFeatures.get(currentFeatures.shape -1);
-        console.log(i + ": " + currentFeatures.slice(1).tolist()+", "+ currentFeatures.toString() + ", " + currentLabel);
+        //console.log(i + ": " + currentFeatures.slice(1).tolist()+", "+ currentFeatures.toString() + ", " + currentLabel);
         
         knnClassifier.addExample(currentFeatures.slice(1).tolist(),currentLabel);
     }
@@ -220,7 +220,7 @@ function Train(){
 }
 
 function Test(){
-    console.log("I am being test");
+    //console.log("I am being test");
 
     var currentFeatures = irisData.pick(testingSampleIndex);
     var currentLabel = currentFeatures.get(currentFeatures.shape -1);
@@ -230,10 +230,20 @@ function Test(){
 }
 
 function GotResults(err, result){
-    console.log(testingSampleIndex + ": " + result.label);
+    //console.log(testingSampleIndex + ": " + result.label);
     
     testingSampleIndex +=2;
     if(testingSampleIndex >= 150){
         testingSampleIndex = 1;
+    }
+}
+
+function DrawCircles() {
+    for(var i =0; i < numSamples; i++){
+        
+        var x = irisData.get(i,0);
+        var y = irisData.get(i,1);
+
+        console.log(i,x,y);
     }
 }
