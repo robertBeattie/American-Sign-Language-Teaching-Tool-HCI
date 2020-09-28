@@ -210,7 +210,7 @@ function Train(){
     for(var i =1; i < numSamples; i+=2){
         var currentFeatures = irisData.pick(i);
         var currentLabel = currentFeatures.get(currentFeatures.shape -1);
-        console.log(i + ": " + currentFeatures.slice().toString()+", "+ currentFeatures.toString() + ", " + currentLabel);
+        console.log(i + ": " + currentFeatures.slice().tolist()+", "+ currentFeatures.toString() + ", " + currentLabel);
         
         knnClassifier.addExample(currentFeatures.slice().tolist(),currentLabel);
     }
@@ -223,12 +223,11 @@ function Test(){
     for(var i =0; i < numSamples; i+=2){
         var currentFeatures = irisData.pick(i);
         var currentLabel = currentFeatures.get(currentFeatures.shape -1);
-        var predictedLabel = knnClassifier.classify(currentFeatures.tolist());
-        var correct = "Incorrect";
-        if(predictedLabel == currentLabel){
-            correct = "Correct";
-        }
-        console.log("index " + i + ", row " +currentFeatures.toString()+ ", Guess " + correct);
+        var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
+        //console.log("index " + i + ", row " +currentFeatures.toString()+", Predicted " + predictedLabel + ", Current " + currentLabel);  
     }
-  
+}
+
+function GotResults(err, result){
+    console.log(result);
 }
