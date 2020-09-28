@@ -1,6 +1,6 @@
 var frameIndex = 0;
 var frameflip = 0;
-var trainingCompleted = false;
+var trainingCompleted = true;
 function draw(){
     clear();
     if(!trainingCompleted){
