@@ -224,11 +224,12 @@ function Test(){
 
     var currentFeatures = irisData.pick(testingSampleIndex);
     var currentLabel = currentFeatures.get(currentFeatures.shape -1);
-    //var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
+    var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
     //console.log("index " + i + ", row " +currentFeatures.toString()+", Predicted " + predictedLabel + ", Current " + currentLabel);  
 
 }
 
 function GotResults(err, result){
-    console.log(result.label);
+    console.log(testingSampleIndex + ": " +result);
+    
 }
