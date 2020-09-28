@@ -3,7 +3,10 @@ var frameflip = 0;
 var trainingCompleted = false;
 function draw(){
     clear();
-    Train();
+    if(!trainingCompleted){
+        Train();
+    }
+
     Test();
     if(frameIndex >= 100){
         frameIndex = 0;
