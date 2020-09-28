@@ -211,9 +211,9 @@ function Train(){
     for(var i =1; i < numSamples; i+=2){
         var currentFeatures = irisData.pick(i);
         var currentLabel = currentFeatures.get(currentFeatures.shape -1);
-        console.log(i + ": " + currentFeatures.slice().tolist()+", "+ currentFeatures.toString() + ", " + currentLabel);
+        console.log(i + ": " + currentFeatures.slice(1).tolist()+", "+ currentFeatures.toString() + ", " + currentLabel);
         
-        knnClassifier.addExample(currentFeatures.slice().tolist(),currentLabel);
+        knnClassifier.addExample(currentFeatures.slice(1).tolist(),currentLabel);
     }
 
     trainingCompleted = true;
@@ -224,7 +224,7 @@ function Test(){
 
     var currentFeatures = irisData.pick(testingSampleIndex);
     var currentLabel = currentFeatures.get(currentFeatures.shape -1);
-    var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
+    var predictedLabel = knnClassifier.classify(currentFeatures.slice(1).tolist(),GotResults);  
     //console.log("index " + i + ", row " +currentFeatures.toString()+", Predicted " + predictedLabel + ", Current " + currentLabel);  
 
 }
