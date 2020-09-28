@@ -207,7 +207,7 @@ function draw(){
 
 function Train(){
     console.log("I am being trained");
-    for(var i =0; i < numSamples; i+=2){
+    for(var i =1; i < numSamples; i+=2){
         var currentFeatures = irisData.pick(i);
         var currentLabel = currentFeatures.get(currentFeatures.shape -1);
         console.log(i + ": " + currentFeatures.slice().toString()+", "+ currentFeatures.toString() + ", " + currentLabel);
@@ -220,5 +220,15 @@ function Train(){
 
 function Test(){
     console.log("I am being test");
+    for(var i =0; i < numSamples; i+=2){
+        var currentFeatures = irisData.pick(i);
+        var currentLabel = currentFeatures.get(currentFeatures.shape -1);
+        
+        var correct = "Incorrect";
+        if(true){
+            correct = "Correct";
+        }
+        console.log("index " + i + ", row " +currentFeatures.toString()+ ", Guess " + correct);
+    }
   
 }
