@@ -222,9 +222,9 @@ function Train(){
 function Test(){
     console.log("I am being test");
 
-    var currentFeatures = irisData.pick(i);
+    var currentFeatures = irisData.pick(testingSampleIndex);
     var currentLabel = currentFeatures.get(currentFeatures.shape -1);
-    var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
+    //var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
     //console.log("index " + i + ", row " +currentFeatures.toString()+", Predicted " + predictedLabel + ", Current " + currentLabel);  
 
 }
