@@ -164,7 +164,7 @@ var trainingCompleted = false;
 var numSamples = irisData.shape[0];
 var numFeatures = irisData.shape[1];
 
-var predictedClassLabels = nj.array([numSamples]).zeros();
+var predictedClassLabels = nj.zeros(numSamples);
 function draw(){
     clear();
     
@@ -216,9 +216,9 @@ function Train(){
     for(var i =1; i < numSamples; i+=2){
         var currentFeatures = irisData.pick(i);
         var currentLabel = currentFeatures.get(currentFeatures.shape -1);
-        //console.log(i + ": " + currentFeatures.slice(1).tolist()+", "+ currentFeatures.toString() + ", " + currentLabel);
+        //console.log(currentFeatures.slice([1]).tolist());
         
-        knnClassifier.addExample(currentFeatures.slice(1).tolist(),currentLabel);
+        knnClassifier.addExample(currentFeatures.slice([3]).tolist(),currentLabel);
     }
 
     trainingCompleted = true;
@@ -229,14 +229,15 @@ function Test(){
 
     var currentFeatures = irisData.pick(testingSampleIndex);
     var currentLabel = currentFeatures.get(currentFeatures.shape -1);
-    var predictedLabel = knnClassifier.classify(currentFeatures.slice(1).tolist(),GotResults);  
+    var predictedLabel = knnClassifier.classify(currentFeatures.slice([3]).tolist(),GotResults);  
     //console.log("index " + i + ", row " +currentFeatures.toString()+", Predicted " + predictedLabel + ", Current " + currentLabel);  
 
 }
 
 function GotResults(err, result){
-    //console.log(testingSampleIndex + ": " + result.label);
-    predictedClassLabels[testingSampleIndex] = result.label;
+    console.log(testingSampleIndex + ": " + result.label);
+    predictedClassLabels.set(testingSampleIndex,result.label);
+
     testingSampleIndex +=2;
     if(testingSampleIndex >= 150){
         testingSampleIndex = 1;
@@ -244,7 +245,7 @@ function GotResults(err, result){
 }
 
 function DrawCircles() {
-    for(var i =0; i < numSamples; i++){
+    for(var i =1; i < numSamples; i++){
         
         var x = irisData.get(i,0);
         var y = irisData.get(i,1);
@@ -257,19 +258,19 @@ function DrawCircles() {
         }else{
             fill('green');
         }
-
+        
         if(i % 2 == 0){
             stroke('black');
         }else{
-            if(c == 0){
+            if(predictedClassLabels.get(i) == 0){
                 stroke('red');
-            }else if (c == 1){
+            }else if (predictedClassLabels.get(i) == 1){
                 stroke('blue');
             }else{
                 stroke('green');
             }
         }
-        //console.log(i,x,y);
+        //console.log(predictedClassLabels.tolist());
         circle(x * 100,y * 100,8);
     }
 }
