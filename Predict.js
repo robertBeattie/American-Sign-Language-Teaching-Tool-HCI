@@ -230,6 +230,7 @@ function Test(){
 }
 
 function GotResults(err, result){
-    console.log(testingSampleIndex + ": " +result);
+    console.log(testingSampleIndex + ": " + result.label);
     
+    testingSampleIndex +=2;
 }
