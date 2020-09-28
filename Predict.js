@@ -245,6 +245,13 @@ function DrawCircles() {
         var y = irisData.get(i,1);
 
         var c = irisData.get(i,4);
+        if(c == 0){
+            fill('red');
+        }else if (c == 1){
+            fill('blue');
+        }else{
+            fill('green');
+        }
         //console.log(i,x,y);
         circle(x * 100,y * 100,8);
     }
