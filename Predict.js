@@ -244,6 +244,7 @@ function DrawCircles() {
         var x = irisData.get(i,0);
         var y = irisData.get(i,1);
 
-        console.log(i,x,y);
+        //console.log(i,x,y);
+        circle(x * 100,y * 100,50);
     }
 }
