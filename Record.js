@@ -63,7 +63,7 @@ function HandleFinger(finger, boneType, interactionBox){
 
 function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     var normalizedPrevJoint = interactionBox.normalizePoint(bone.prevJoint, true);
-    console.log(normalizedPrevJoint);
+   
 
     px = bone.prevJoint[0];  
     py = bone.prevJoint[1];  
@@ -71,6 +71,8 @@ function HandleBone(bone, strokeW, fingerIndex, interactionBox){
 
     [px,py] = TransformCoordinates(px,py);
 
+    var normalizedNextJoint = interactionBox.normalizePoint(bone.nextJoint, true); 
+    console.log(normalizedNextJoint);
     nx = bone.nextJoint[0];  
     ny = bone.nextJoint[1];  
     nz = bone.nextJoint[2]; 
