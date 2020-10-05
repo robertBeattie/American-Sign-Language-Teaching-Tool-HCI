@@ -63,7 +63,9 @@ function HandleFinger(finger, boneType, interactionBox){
 
 function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     var normalizedPrevJoint = interactionBox.normalizePoint(bone.prevJoint, true);
-   
+    oneFrameOfData.set(fingerIndex,bone.type,0,normalizedPrevJoint[0]);
+    oneFrameOfData.set(fingerIndex,bone.type,1,normalizedPrevJoint[1]);
+    oneFrameOfData.set(fingerIndex,bone.type,2,normalizedPrevJoint[2]);
 
     px = bone.prevJoint[0];  
     py = bone.prevJoint[1];  
@@ -72,6 +74,10 @@ function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     [px,py] = TransformCoordinates(normalizedPrevJoint);
 
     var normalizedNextJoint = interactionBox.normalizePoint(bone.nextJoint, true); 
+    oneFrameOfData.set(fingerIndex,bone.type,3,normalizedNextJoint[0]);
+    oneFrameOfData.set(fingerIndex,bone.type,4,normalizedNextJoint[1]);
+    oneFrameOfData.set(fingerIndex,bone.type,5,normalizedNextJoint[2]);
+
     nx = bone.nextJoint[0];  
     ny = bone.nextJoint[1];  
     nz = bone.nextJoint[2]; 
@@ -88,12 +94,8 @@ function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     //line width
     strokeWeight(strokeW * 10);
     line(nx,-ny + innerHeight,px, -py + innerHeight);
-    oneFrameOfData.set(fingerIndex,bone.type,0,px);
-    oneFrameOfData.set(fingerIndex,bone.type,1,py);
-    oneFrameOfData.set(fingerIndex,bone.type,2,pz);
-    oneFrameOfData.set(fingerIndex,bone.type,3,nx);
-    oneFrameOfData.set(fingerIndex,bone.type,4,ny);
-    oneFrameOfData.set(fingerIndex,bone.type,5,nz);
+
+    
 }
 function RecordData(){
     if(previousNumHands == 2 && currentNumHands == 1){
@@ -115,7 +117,7 @@ function TransformCoordinates (normalizedPosition){
     */
     // Convert the normalized coordinates to span the canvas
     x = window.innerWidth * normalizedPosition[0];
-    y = window.innerHeight * (1 - normalizedPosition[1]);
+    y = window.innerHeight * (normalizedPosition[1]);
 
     return[x,y];
 }
