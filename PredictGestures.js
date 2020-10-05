@@ -18,6 +18,9 @@ function draw(){
 
 function Train(){
     //console.log("training :" + train0);
+    for(var i =0; i < train0.size; i++){
+        console.log(train0.shape[3]); 
+    }
 
     trainingCompleted = true;
 }
