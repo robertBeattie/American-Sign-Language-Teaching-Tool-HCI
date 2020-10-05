@@ -17,11 +17,11 @@ function draw(){
 }
 
 function Train(){
-    console.log("training :" + train0);
+    //console.log("training :" + train0);
 
     trainingCompleted = true;
 }
 
 function Test(){
-    console.log("testing :" + test);
+    //console.log("testing :" + test);
 }
