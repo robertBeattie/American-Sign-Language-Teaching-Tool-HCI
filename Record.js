@@ -122,6 +122,7 @@ function TransformCoordinates (normalizedPosition){
     return[x,y];
 }
 
+//old scale not in use
 function Scale (OldValue, OldMin, OldMax, NewMin, NewMax){
     return((((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin);
 }
