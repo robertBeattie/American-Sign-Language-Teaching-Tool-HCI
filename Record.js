@@ -13,10 +13,10 @@ var previousNumHands = 0;
 var currentNumHands = 0;
 
 var currentSample = 0;
-var numSamples = 2;
+var numSamples = 3;
 var framesOfData = nj.zeros([5,4,6,numSamples]);
 
-
+nj.config.printThreshold = 1000;
 
 Leap.loop(controllerOptions, function(frame)
 {     
@@ -112,6 +112,7 @@ function RecordData(){
 
     if(previousNumHands == 2 && currentNumHands == 1 ){
         background(51); 
+        console.log(framesOfData.toString());
         currentSample++;
         if(currentSample == numSamples){
             currentSample = 0;
