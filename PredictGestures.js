@@ -21,13 +21,9 @@ function draw(){
 function Train(){
     //console.log("training :" + train0);
     //console.log("size :" + train0.shape[3]);
-    for(var i =0; i < train0.shape[3]; i++){
-        console.log(train0.pick(null,null,null,i,null).reshape(120).toString());
-        features = train0.pick(null,null,null,i,null).reshape(120).tolist(); 
-        knnClassifier.addExample(features,0);
+    TrainHelper(train0,0);
+    TrainHelper(train1,1);
     
-    }
-
     trainingCompleted = true;
 }
 
@@ -47,5 +43,13 @@ function GotResults(err, result){
     testingSampleIndex++;
     if(testingSampleIndex >= train0.shape[3]){
        testingSampleIndex = 0;
+    }
+}
+
+function TrainHelper(train,n){
+    for(var i =0; i < train.shape[3]; i++){
+        console.log(train.pick(null,null,null,i,null).reshape(120).toString());
+        features = train.pick(null,null,null,i,null).reshape(120).tolist(); 
+        knnClassifier.addExample(features,n);
     }
 }
