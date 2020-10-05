@@ -35,17 +35,15 @@ function Test(){
     //console.log("testing :" + test);
     //console.log(test.pick(null,null,null,testingSampleIndex,null).reshape(120).tolist());
     var currentFeatures = test.pick(null,null,null,testingSampleIndex,null).reshape(120);
-    console.log(currentFeatures.shape -1);
     currentLabel = currentFeatures.get(currentFeatures.shape -1);
     var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
    
-    
 }
 
 function GotResults(err, result){
-    // console.log(testingSampleIndex + ": " + result.label);
+    console.log(testingSampleIndex + ": " + result.label);
     predictedClassLabels.set(testingSampleIndex,result.label);
-
+    
     testingSampleIndex++;
     if(testingSampleIndex >= train0.shape[3]){
        testingSampleIndex = 0;
