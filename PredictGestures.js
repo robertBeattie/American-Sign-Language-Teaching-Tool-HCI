@@ -22,6 +22,8 @@ function Train(){
     for(var i =0; i < train0.shape[3]; i++){
         console.log(train0.pick(null,null,null,i,null).reshape(120).toString());
         features = train0.pick(null,null,null,i,null).reshape(120); 
+        knnClassifier.addExample(features,0);
+    
     }
 
     trainingCompleted = true;
