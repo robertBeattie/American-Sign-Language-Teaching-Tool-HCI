@@ -12,9 +12,11 @@ var rawYMax = 300;
 var previousNumHands = 0;
 var currentNumHands = 0;
 
-var oneFrameOfData = nj.zeros([5,4,6]);
-
+var currentSample = 0;
 var numSamples;
+var oneFrameOfData = nj.zeros([5,4,6,numSamples]);
+
+
 
 Leap.loop(controllerOptions, function(frame)
 {     
@@ -65,9 +67,9 @@ function HandleFinger(finger, boneType, interactionBox){
 
 function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     var normalizedPrevJoint = interactionBox.normalizePoint(bone.prevJoint, true);
-    oneFrameOfData.set(fingerIndex,bone.type,0,normalizedPrevJoint[0]);
-    oneFrameOfData.set(fingerIndex,bone.type,1,normalizedPrevJoint[1]);
-    oneFrameOfData.set(fingerIndex,bone.type,2,normalizedPrevJoint[2]);
+    oneFrameOfData.set(fingerIndex,bone.type,0,currentSample,normalizedPrevJoint[0]);
+    oneFrameOfData.set(fingerIndex,bone.type,1,currentSample,normalizedPrevJoint[1]);
+    oneFrameOfData.set(fingerIndex,bone.type,2,currentSample,normalizedPrevJoint[2]);
 
     px = bone.prevJoint[0];  
     py = bone.prevJoint[1];  
@@ -76,9 +78,9 @@ function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     [px,py] = TransformCoordinates(normalizedPrevJoint);
 
     var normalizedNextJoint = interactionBox.normalizePoint(bone.nextJoint, true); 
-    oneFrameOfData.set(fingerIndex,bone.type,3,normalizedNextJoint[0]);
-    oneFrameOfData.set(fingerIndex,bone.type,4,normalizedNextJoint[1]);
-    oneFrameOfData.set(fingerIndex,bone.type,5,normalizedNextJoint[2]);
+    oneFrameOfData.set(fingerIndex,bone.type,3,currentSample,normalizedNextJoint[0]);
+    oneFrameOfData.set(fingerIndex,bone.type,4,currentSample,normalizedNextJoint[1]);
+    oneFrameOfData.set(fingerIndex,bone.type,5,currentSample,normalizedNextJoint[2]);
 
     nx = bone.nextJoint[0];  
     ny = bone.nextJoint[1];  
