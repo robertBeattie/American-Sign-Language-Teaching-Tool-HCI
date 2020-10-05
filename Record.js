@@ -102,9 +102,16 @@ function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     
 }
 function RecordData(){
-    if(previousNumHands == 2 && currentNumHands == 1){
-        console.log(framesOfData.pick(null,null,null,currentSample).toString());
-        background(51);
+    if(currentSample != 0){
+        console.log(framesOfData.toString());
+        currentSample++;
+        if(currentSample == numSamples){
+            currentSample = 0;
+        }
+    }
+
+    if(previousNumHands == 2 && currentNumHands == 1 ){
+        background(51); 
         currentSample++;
         if(currentSample == numSamples){
             currentSample = 0;
