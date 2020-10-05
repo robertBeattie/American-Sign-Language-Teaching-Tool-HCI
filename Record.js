@@ -69,15 +69,15 @@ function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     py = bone.prevJoint[1];  
     pz = bone.prevJoint[2]; 
 
-    [px,py] = TransformCoordinates(px,py);
+    [px,py] = TransformCoordinates(normalizedPrevJoint);
 
     var normalizedNextJoint = interactionBox.normalizePoint(bone.nextJoint, true); 
-    console.log(normalizedNextJoint);
+   // console.log(normalizedNextJoint);
     nx = bone.nextJoint[0];  
     ny = bone.nextJoint[1];  
     nz = bone.nextJoint[2]; 
     
-    [nx,ny] = TransformCoordinates(nx,ny);
+    [nx,ny] = TransformCoordinates(normalizedNextJoint);
     
     //color
     if(currentNumHands == 1){
@@ -103,14 +103,20 @@ function RecordData(){
     }
 }
 
-function TransformCoordinates (x,y){
-    //check bounds
+function TransformCoordinates (normalizedPosition){
+
+    //check bounds old scaling 
+    /*
     if(x > rawXMax){ x = rawXMax;}
     if(x < rawXMin){ x = rawXMin;}
     x = Scale(x, rawXMin, rawXMax, 0, window.innerWidth);
     if(y > rawYMax){ y = rawYMax;}
     if(y < rawYMin){ y = rawYMin;}
     y = Scale(y, rawYMin, rawYMax, 0, window.innerHeight);
+    */
+    // Convert the normalized coordinates to span the canvas
+    x = window.innerWidth * normalizedPosition[0];
+    y = window.innerHeight * (1 - normalizedPosition[1]);
 
     return[x,y];
 }
