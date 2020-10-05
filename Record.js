@@ -13,7 +13,7 @@ var previousNumHands = 0;
 var currentNumHands = 0;
 
 var currentSample = 0;
-var numSamples = 3;
+var numSamples = 2;
 var framesOfData = nj.zeros([5,4,6,numSamples]);
 
 nj.config.printThreshold = 1000;
