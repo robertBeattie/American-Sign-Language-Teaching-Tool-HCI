@@ -13,8 +13,8 @@ var previousNumHands = 0;
 var currentNumHands = 0;
 
 var currentSample = 0;
-var numSamples;
-var oneFrameOfData = nj.zeros([5,4,6,numSamples]);
+var numSamples = 2;
+var framesOfData = nj.zeros([5,4,6,numSamples]);
 
 
 
@@ -67,9 +67,9 @@ function HandleFinger(finger, boneType, interactionBox){
 
 function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     var normalizedPrevJoint = interactionBox.normalizePoint(bone.prevJoint, true);
-    oneFrameOfData.set(fingerIndex,bone.type,0,currentSample,normalizedPrevJoint[0]);
-    oneFrameOfData.set(fingerIndex,bone.type,1,currentSample,normalizedPrevJoint[1]);
-    oneFrameOfData.set(fingerIndex,bone.type,2,currentSample,normalizedPrevJoint[2]);
+    framesOfData.set(fingerIndex,bone.type,0,currentSample,normalizedPrevJoint[0]);
+    framesOfData.set(fingerIndex,bone.type,1,currentSample,normalizedPrevJoint[1]);
+    framesOfData.set(fingerIndex,bone.type,2,currentSample,normalizedPrevJoint[2]);
 
     px = bone.prevJoint[0];  
     py = bone.prevJoint[1];  
@@ -78,9 +78,9 @@ function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     [px,py] = TransformCoordinates(normalizedPrevJoint);
 
     var normalizedNextJoint = interactionBox.normalizePoint(bone.nextJoint, true); 
-    oneFrameOfData.set(fingerIndex,bone.type,3,currentSample,normalizedNextJoint[0]);
-    oneFrameOfData.set(fingerIndex,bone.type,4,currentSample,normalizedNextJoint[1]);
-    oneFrameOfData.set(fingerIndex,bone.type,5,currentSample,normalizedNextJoint[2]);
+    framesOfData.set(fingerIndex,bone.type,3,currentSample,normalizedNextJoint[0]);
+    framesOfData.set(fingerIndex,bone.type,4,currentSample,normalizedNextJoint[1]);
+    framesOfData.set(fingerIndex,bone.type,5,currentSample,normalizedNextJoint[2]);
 
     nx = bone.nextJoint[0];  
     ny = bone.nextJoint[1];  
@@ -103,7 +103,7 @@ function HandleBone(bone, strokeW, fingerIndex, interactionBox){
 }
 function RecordData(){
     if(previousNumHands == 2 && currentNumHands == 1){
-        console.log(oneFrameOfData.toString());
+        console.log( framesOfData.pick(null,null,null,1).toString() );
         background(51);
     }
 }
