@@ -27,7 +27,8 @@ Leap.loop(controllerOptions, function(frame)
 function HandleFrame(frame){
    if(frame.hands.length >= 1){
     var hand = frame.hands[0];
-    HandleHand(hand, frame.InteractionBox);    
+    var interactionBox = frame.interactionBox;
+    HandleHand(hand, interactionBox);    
     }
     //adding a second hand
     /*
@@ -37,7 +38,7 @@ function HandleFrame(frame){
     }
     */
 }
-function HandleHand(hand, InteractionBox){
+function HandleHand(hand, interactionBox){
     //Distal phalanges tips
     //Intermediate phalanges middle
     //Proximal phalanges cloest to palm
@@ -45,22 +46,25 @@ function HandleHand(hand, InteractionBox){
     var fingers = hand.fingers;
     for (var i=3; i >= 0; i--){
         fingers.forEach( finger => {
-            HandleFinger(finger, i, InteractionBox);
+            HandleFinger(finger, i, interactionBox);
         });
     }
 }
-function HandleFinger(finger, boneType, InteractionBox){
+function HandleFinger(finger, boneType, interactionBox){
     
     var bones = finger.bones;
     bones.forEach( bone => {
         if(bone.type == boneType){
-            HandleBone(bone, (5 - bone.type), finger.id % 10, InteractionBox);
+            HandleBone(bone, (5 - bone.type), finger.id % 10, interactionBox);
         }
     }); 
 
 }
 
-function HandleBone(bone, strokeW, fingerIndex, InteractionBox){
+function HandleBone(bone, strokeW, fingerIndex, interactionBox){
+    var normalizedPrevJoint = interactionBox.normalizePoint(bone.prevJoint, true);
+    console.log(normalizedPrevJoint);
+
     px = bone.prevJoint[0];  
     py = bone.prevJoint[1];  
     pz = bone.prevJoint[2]; 
