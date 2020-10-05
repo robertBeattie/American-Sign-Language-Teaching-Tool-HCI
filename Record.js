@@ -14,6 +14,8 @@ var currentNumHands = 0;
 
 var oneFrameOfData = nj.zeros([5,4,6]);
 
+var numSamples;
+
 Leap.loop(controllerOptions, function(frame)
 {     
     currentNumHands = frame.hands.length;
