@@ -32,7 +32,7 @@ function Train(){
 function Test(){
     console.log("testing :");
     //console.log(test.pick(null,null,null,testingSampleIndex,null).reshape(120).tolist());
-    var currentFeatures = train4.pick(null,null,null,testingSampleIndex,null).reshape(120);
+    var currentFeatures = test.pick(null,null,null,testingSampleIndex,null).reshape(120);
     currentLabel = currentFeatures.get(currentFeatures.shape -1);
     var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
    
