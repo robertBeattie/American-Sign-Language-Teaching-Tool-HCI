@@ -148,7 +148,7 @@ function CenterData(){
     var currentMeanAfter = xValues.mean();
 
 
-    console.log("before: " + currentMean + ", after: " + currentMeanAfter );
+    //console.log("before: " + currentMean + ", after: " + currentMeanAfter );
 }
 function PredictionAccuracy(predicted){
     c = predicted;
