@@ -7,7 +7,7 @@ var frameIndex = 0;
 var frameflip = 0;
 var trainingCompleted = false;
 
-var framesOfData = nj.zeros([5,4,6]);
+var oneFrameOfData = nj.zeros([5,4,6]);
 
 var predictedClassLabels = nj.zeros(3);
 
@@ -17,10 +17,8 @@ Leap.loop(controllerOptions, function(frame)
     if(!trainingCompleted){
         Train();
     }
-
+    console.log(oneFrameOfData.toString());
     HandleFrame(frame);
-    console.log(framesOfData.toString());
-    Test(); 
 });
 
 function Train(){
@@ -93,9 +91,9 @@ function HandleFrame(frame){
  
  function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     var normalizedPrevJoint = interactionBox.normalizePoint(bone.prevJoint, true);
-    framesOfData.set(fingerIndex,bone.type,0,normalizedPrevJoint[0]);
-    framesOfData.set(fingerIndex,bone.type,1,normalizedPrevJoint[1]);
-    framesOfData.set(fingerIndex,bone.type,2,normalizedPrevJoint[2]);
+    oneFrameOfData.set(fingerIndex,bone.type,0,normalizedPrevJoint[0]);
+    oneFrameOfData.set(fingerIndex,bone.type,1,normalizedPrevJoint[1]);
+    oneFrameOfData.set(fingerIndex,bone.type,2,normalizedPrevJoint[2]);
 
     px = bone.prevJoint[0];  
     py = bone.prevJoint[1];  
@@ -104,9 +102,9 @@ function HandleFrame(frame){
     [px,py] = TransformCoordinates(normalizedPrevJoint);
 
     var normalizedNextJoint = interactionBox.normalizePoint(bone.nextJoint, true); 
-    framesOfData.set(fingerIndex,bone.type,3,normalizedNextJoint[0]);
-    framesOfData.set(fingerIndex,bone.type,4,normalizedNextJoint[1]);
-    framesOfData.set(fingerIndex,bone.type,5,normalizedNextJoint[2]);
+    oneFrameOfData.set(fingerIndex,bone.type,3,normalizedNextJoint[0]);
+    oneFrameOfData.set(fingerIndex,bone.type,4,normalizedNextJoint[1]);
+    oneFrameOfData.set(fingerIndex,bone.type,5,normalizedNextJoint[2]);
 
     nx = bone.nextJoint[0];  
     ny = bone.nextJoint[1];  
@@ -121,7 +119,7 @@ function HandleFrame(frame){
     strokeWeight(strokeW * 10);
     line(nx,-ny + innerHeight,px, -py + innerHeight);
  
-    
+    Test();
  }
 
  function TransformCoordinates (normalizedPosition){
