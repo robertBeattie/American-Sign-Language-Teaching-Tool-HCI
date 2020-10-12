@@ -46,7 +46,7 @@ function Test(){
 
 function GotResults(err, result){
     PredictionAccuracy(result.label);
-    console.log(n , m , c);
+   // console.log(n , m , c);
   //predictedClassLabels.set(testingSampleIndex,result.label);
 }
 
