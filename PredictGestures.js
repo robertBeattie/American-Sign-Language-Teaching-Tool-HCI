@@ -133,8 +133,8 @@ function CenterData(){
     var xValues = oneFrameOfData.slice([],[],[0,6,3]);
     var currentMean = xValues.mean();
     var horizontalShift = 0.5 - currentMean;
-    for(var i = 0; i < 5; i++){
-        for(var j = 0; j < 4; j++){
+    for(var currentRow = 0; currentRow < 5; currentRow++){
+        for(var currentColumn = 0; currentColumn < 4; currentColumn++){
             currentX = oneFrameOfData.get(currentRow,currentColumn,0);
             shiftedX = currentX + horizontalShift;
             oneFrameOfData.set(currentRow,currentColumn,0, shiftedX);
@@ -144,8 +144,11 @@ function CenterData(){
             oneFrameOfData.set(currentRow,currentColumn,1, shiftedX);
         }
     }
+    xValues = oneFrameOfData.slice([],[],[0,6,3]);
+    var currentMeanAfter = xValues.mean();
 
-    console.log(horizontalShift);
+
+    console.log("before: " + currentMean + ", after: " + currentMeanAfter );
 }
 function PredictionAccuracy(predicted){
     c = predicted;
