@@ -10,14 +10,15 @@ var trainingCompleted = false;
 
 var predictedClassLabels = nj.zeros(3);
 
-/*
-clear();
-    
+Leap.loop(controllerOptions, function(frame)
+{
+    clear();
+        
     if(!trainingCompleted){
         Train();
     }
     Test(); 
-*/
+});
 
 function Train(){
     console.log("training :");
