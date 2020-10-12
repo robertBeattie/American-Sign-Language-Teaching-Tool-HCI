@@ -10,6 +10,10 @@ var oneFrameOfData = nj.zeros([5,4,6]);
 
 var predictedClassLabels = nj.zeros(3);
 
+//predicton accuracy
+var n = 0;
+var m = 0;
+
 Leap.loop(controllerOptions, function(frame)
 {
     clear();
