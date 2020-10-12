@@ -1,7 +1,7 @@
-
-
 const knnClassifier = ml5.KNNClassifier();
 var testingSampleIndex = 0;
+
+var controllerOptions = {};
 
 var frameIndex = 0;
 var frameflip = 0;
@@ -35,7 +35,7 @@ function Test(){
     console.log("testing :");
     //console.log(test.pick(null,null,null,testingSampleIndex,null).reshape(120).tolist());
     var currentFeatures = test.pick(null,null,null,testingSampleIndex,null).reshape(120);
-    var predictedLabel = knnClassif.classify(currentFeatures.tolist(),GotResults);  
+    var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
     currentLabel = currentFeatures.get(currentFeatures.shape -1);
    
 }
