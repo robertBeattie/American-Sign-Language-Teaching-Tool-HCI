@@ -130,6 +130,11 @@ function HandleFrame(frame){
     return[x,y];
 }
 function CenterData(){
+    CenterXData();
+    //CenterYData();
+    CenterZData();
+}
+function CenterXData(){
     var xValues = oneFrameOfData.slice([],[],[0,6,3]);
     var currentMean = xValues.mean();
     var horizontalShift = 0.5 - currentMean;
@@ -139,17 +144,44 @@ function CenterData(){
             shiftedX = currentX + horizontalShift;
             oneFrameOfData.set(currentRow,currentColumn,0, shiftedX);
 
-            currentX = oneFrameOfData.get(currentRow,currentColumn,1);
+            currentX = oneFrameOfData.get(currentRow,currentColumn,4);
             shiftedX = currentX + horizontalShift;
-            oneFrameOfData.set(currentRow,currentColumn,1, shiftedX);
+            oneFrameOfData.set(currentRow,currentColumn,4, shiftedX);
         }
     }
     xValues = oneFrameOfData.slice([],[],[0,6,3]);
     var currentMeanAfter = xValues.mean();
 
 
+    console.log("before: " + currentMean + ", after: " + currentMeanAfter );
+}
+function CenterYData(){
+    var yValues = oneFrameOfData.slice([],[],[1,6,3]);
+    var currentMean = yValues.mean();
+    var horizontalShift = 0.5 - currentMean;
+    for(var currentRow = 0; currentRow < 5; currentRow++){
+        for(var currentColumn = 0; currentColumn < 4; currentColumn++){
+            currentY = oneFrameOfData.get(currentRow,currentColumn,2);
+            shiftedY = currentY + horizontalShift;
+            oneFrameOfData.set(currentRow,currentColumn,2, shiftedY);
+
+            currentY = oneFrameOfData.get(currentRow,currentColumn,5);
+            shiftedY = currentY + horizontalShift;
+            oneFrameOfData.set(currentRow,currentColumn,5, shiftedY);
+        }
+    }
+    yValues = oneFrameOfData.slice([],[],[0,6,3]);
+    var currentMeanAfter = yValues.mean();
+
+
     //console.log("before: " + currentMean + ", after: " + currentMeanAfter );
 }
+function CenterZData(){
+    
+}
+
+
+
 function PredictionAccuracy(predicted){
     c = predicted;
     n++;
