@@ -138,6 +138,10 @@ function CenterData(){
             currentX = oneFrameOfData.get(currentRow,currentColumn,0);
             shiftedX = currentX + horizontalShift;
             oneFrameOfData.set(currentRow,currentColumn,0, shiftedX);
+
+            currentX = oneFrameOfData.get(currentRow,currentColumn,1);
+            shiftedX = currentX + horizontalShift;
+            oneFrameOfData.set(currentRow,currentColumn,1, shiftedX);
         }
     }
 
