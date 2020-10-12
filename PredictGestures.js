@@ -19,6 +19,7 @@ Leap.loop(controllerOptions, function(frame)
     }
 
     HandleFrame(frame);
+    console.log(framesOfData.toString());
     Test(); 
 });
 
@@ -120,7 +121,7 @@ function HandleFrame(frame){
     strokeWeight(strokeW * 10);
     line(nx,-ny + innerHeight,px, -py + innerHeight);
  
-     
+    
  }
 
  function TransformCoordinates (normalizedPosition){
