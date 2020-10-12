@@ -130,9 +130,17 @@ function HandleFrame(frame){
     return[x,y];
 }
 function CenterData(){
-    xValues = oneFrameOfData.slice([],[],[0,6,3]);
-    currentMean = xValues.mean();
-    horizontalShift = 0.5 - currentMean;
+    var xValues = oneFrameOfData.slice([],[],[0,6,3]);
+    var currentMean = xValues.mean();
+    var horizontalShift = 0.5 - currentMean;
+    for(var i = 0; i < 5; i++){
+        for(var j = 0; j < 4; j++){
+            currentX = oneFrameOfData.get(currentRow,currentColumn,0);
+            shiftedX = currentX + horizontalShift;
+            oneFrameOfData.set(currentRow,currentColumn,0, shiftedX);
+        }
+    }
+
     console.log(horizontalShift);
 }
 function PredictionAccuracy(predicted){
