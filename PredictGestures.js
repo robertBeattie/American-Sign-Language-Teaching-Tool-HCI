@@ -7,7 +7,7 @@ var frameIndex = 0;
 var frameflip = 0;
 var trainingCompleted = false;
 
-var framesOfData = nj.zeros([5,4,6,numSamples]);
+var framesOfData = nj.zeros([5,4,6]);
 
 var predictedClassLabels = nj.zeros(3);
 
