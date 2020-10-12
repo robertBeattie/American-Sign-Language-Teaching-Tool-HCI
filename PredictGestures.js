@@ -30,10 +30,12 @@ function Train(){
     console.log("training :");
     //console.log("size :" + train0.shape[3]);
     
-    TrainHelper(train0,0);
-    TrainHelper(train1,1);
+   // TrainHelper(train0,0);
+  //  TrainHelper(train1,1);
+
     TrainHelper(train3,3);
     TrainHelper(train4,4);
+    TrainHelper(train5,5);
 
     trainingCompleted = true;
 }
