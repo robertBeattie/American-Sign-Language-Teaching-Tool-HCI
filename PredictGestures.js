@@ -92,9 +92,9 @@ function HandleFrame(frame){
  
  function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     var normalizedPrevJoint = interactionBox.normalizePoint(bone.prevJoint, true);
-    framesOfData.set(fingerIndex,bone.type,0,currentSample,normalizedPrevJoint[0]);
-    framesOfData.set(fingerIndex,bone.type,1,currentSample,normalizedPrevJoint[1]);
-    framesOfData.set(fingerIndex,bone.type,2,currentSample,normalizedPrevJoint[2]);
+    framesOfData.set(fingerIndex,bone.type,0,normalizedPrevJoint[0]);
+    framesOfData.set(fingerIndex,bone.type,1,normalizedPrevJoint[1]);
+    framesOfData.set(fingerIndex,bone.type,2,normalizedPrevJoint[2]);
 
     px = bone.prevJoint[0];  
     py = bone.prevJoint[1];  
@@ -103,9 +103,9 @@ function HandleFrame(frame){
     [px,py] = TransformCoordinates(normalizedPrevJoint);
 
     var normalizedNextJoint = interactionBox.normalizePoint(bone.nextJoint, true); 
-    framesOfData.set(fingerIndex,bone.type,3,currentSample,normalizedNextJoint[0]);
-    framesOfData.set(fingerIndex,bone.type,4,currentSample,normalizedNextJoint[1]);
-    framesOfData.set(fingerIndex,bone.type,5,currentSample,normalizedNextJoint[2]);
+    framesOfData.set(fingerIndex,bone.type,3,normalizedNextJoint[0]);
+    framesOfData.set(fingerIndex,bone.type,4,normalizedNextJoint[1]);
+    framesOfData.set(fingerIndex,bone.type,5,normalizedNextJoint[2]);
 
     nx = bone.nextJoint[0];  
     ny = bone.nextJoint[1];  
