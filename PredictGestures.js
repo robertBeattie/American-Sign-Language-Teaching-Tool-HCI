@@ -132,7 +132,8 @@ function HandleFrame(frame){
 function CenterData(){
     xValues = oneFrameOfData.slice([],[],[0,6,3]);
     currentMean = xValues.mean();
-    console.log(currentMean);
+    horizontalShift = 0.5 - currentMean;
+    console.log(horizontalShift);
 }
 function PredictionAccuracy(predicted){
     c = predicted;
