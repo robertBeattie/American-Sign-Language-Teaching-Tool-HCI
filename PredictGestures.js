@@ -170,11 +170,11 @@ function CenterYData(){
             oneFrameOfData.set(currentRow,currentColumn,5, shiftedY);
         }
     }
-    yValues = oneFrameOfData.slice([],[],[0,6,3]);
+    yValues = oneFrameOfData.slice([],[],[1,6,3]);
     var currentMeanAfter = yValues.mean();
 
 
-    //console.log("before: " + currentMean + ", after: " + currentMeanAfter );
+    console.log("before: " + currentMean + ", after: " + currentMeanAfter );
 }
 function CenterZData(){
     
