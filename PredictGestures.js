@@ -14,7 +14,7 @@ var predictedClassLabels = nj.zeros(3);
 var n = 0;
 var m = 1;
 var c;
-var d = "4";
+var d = "3";
 
 Leap.loop(controllerOptions, function(frame)
 {
@@ -46,7 +46,7 @@ function Test(){
 
 function GotResults(err, result){
     PredictionAccuracy(result.label);
-   // console.log(n , m , c);
+    console.log(n , m , c);
   //predictedClassLabels.set(testingSampleIndex,result.label);
 }
 
@@ -131,7 +131,7 @@ function HandleFrame(frame){
 }
 function CenterData(){
     CenterXData();
-    //CenterYData();
+    CenterYData();
     CenterZData();
 }
 function CenterXData(){
