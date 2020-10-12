@@ -29,6 +29,7 @@ Leap.loop(controllerOptions, function(frame)
 function Train(){
     console.log("training :");
     //console.log("size :" + train0.shape[3]);
+    
     TrainHelper(train0,0);
     TrainHelper(train1,1);
     TrainHelper(train3,3);
@@ -51,6 +52,7 @@ function GotResults(err, result){
 }
 
 function TrainHelper(train,n){
+    CenterData();
     for(var i =0; i < train.shape[3]; i++){
         //console.log(train.pick(null,null,null,i,null).reshape(120).toString());
         features = train.pick(null,null,null,i,null).reshape(120).tolist(); 
