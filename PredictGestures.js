@@ -13,6 +13,8 @@ var predictedClassLabels = nj.zeros(3);
 //predicton accuracy
 var n = 0;
 var m = 0;
+var c = 0;
+var d = 4;
 
 Leap.loop(controllerOptions, function(frame)
 {
@@ -124,4 +126,8 @@ function HandleFrame(frame){
     y = window.innerHeight * (normalizedPosition[1]);
 
     return[x,y];
+}
+
+function PredictionAccuracy(c,d){
+    m = (((n-1) * m + (c==d))/(n));
 }
