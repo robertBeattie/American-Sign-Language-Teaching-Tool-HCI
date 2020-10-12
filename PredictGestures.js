@@ -33,16 +33,14 @@ function Train(){
 }
 
 function Test(){
-    console.log("testing :");
-    //console.log(test.pick(null,null,null,testingSampleIndex,null).reshape(120).tolist());
-    var currentFeatures = test.pick(null,null,null,testingSampleIndex,null).reshape(120);
+    //console.log("testing :");
+    var currentFeatures = oneFrameOfData.reshape(120);
     var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
     currentLabel = currentFeatures.get(currentFeatures.shape -1);
-   
 }
 
 function GotResults(err, result){
-    console.log(testingSampleIndex + ": " + result.label);
+    console.log("Current: " + result.label);
     predictedClassLabels.set(testingSampleIndex,result.label);
     
     testingSampleIndex++;
