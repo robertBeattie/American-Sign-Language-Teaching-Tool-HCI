@@ -118,6 +118,7 @@ function HandleFrame(frame){
     strokeWeight(strokeW * 10);
     line(nx,-ny + innerHeight,px, -py + innerHeight);
  
+    CenterData();
     Test();
  }
 
@@ -128,7 +129,11 @@ function HandleFrame(frame){
 
     return[x,y];
 }
-
+function CenterData(){
+    xValues = oneFrameOfData.slice([],[],[0,6,3]);
+    currentMean = xValues.mean();
+    console.log(xValues.shape);
+}
 function PredictionAccuracy(predicted){
     c = predicted;
     n++;
