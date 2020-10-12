@@ -9,14 +9,15 @@ var trainingCompleted = false;
 
 
 var predictedClassLabels = nj.zeros(3);
-function draw(){
-    clear();
+
+/*
+clear();
     
     if(!trainingCompleted){
         Train();
     }
-    Test();    
-}
+    Test(); 
+*/
 
 function Train(){
     console.log("training :");
@@ -33,8 +34,8 @@ function Test(){
     console.log("testing :");
     //console.log(test.pick(null,null,null,testingSampleIndex,null).reshape(120).tolist());
     var currentFeatures = test.pick(null,null,null,testingSampleIndex,null).reshape(120);
+    var predictedLabel = knnClassif.classify(currentFeatures.tolist(),GotResults);  
     currentLabel = currentFeatures.get(currentFeatures.shape -1);
-    var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
    
 }
 
