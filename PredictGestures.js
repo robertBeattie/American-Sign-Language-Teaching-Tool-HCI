@@ -12,9 +12,9 @@ var predictedClassLabels = nj.zeros(3);
 
 //predicton accuracy
 var n = 0;
-var m = 0;
-var c = 0;
-var d = 4;
+var m = 1;
+var c;
+var d = "4";
 
 Leap.loop(controllerOptions, function(frame)
 {
@@ -45,7 +45,8 @@ function Test(){
 }
 
 function GotResults(err, result){
-    console.log(result.label);
+    PredictionAccuracy(result.label);
+    console.log(n , m , c);
   //predictedClassLabels.set(testingSampleIndex,result.label);
 }
 
@@ -128,6 +129,15 @@ function HandleFrame(frame){
     return[x,y];
 }
 
-function PredictionAccuracy(c,d){
-    m = (((n-1) * m + (c==d))/(n));
+function PredictionAccuracy(predicted){
+    c = predicted;
+    n++;
+    var cd;
+    if(c==d) {
+        cd = 1; 
+    }else{
+        cd = 0;
+    }
+
+    m = (((n-1) * m + cd)/n);
 }
