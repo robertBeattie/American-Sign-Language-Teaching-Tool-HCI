@@ -1,5 +1,4 @@
 const knnClassifier = ml5.KNNClassifier();
-var testingSampleIndex = 0;
 
 var controllerOptions = {};
 
@@ -40,13 +39,8 @@ function Test(){
 }
 
 function GotResults(err, result){
-    console.log("Current: " + result.label);
-    predictedClassLabels.set(testingSampleIndex,result.label);
-    
-    testingSampleIndex++;
-    if(testingSampleIndex >= test.shape[3]){
-       testingSampleIndex = 0;
-    }
+    console.log(result.label);
+  //predictedClassLabels.set(testingSampleIndex,result.label);
 }
 
 function TrainHelper(train,n){
