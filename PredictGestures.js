@@ -17,7 +17,7 @@ Leap.loop(controllerOptions, function(frame)
     if(!trainingCompleted){
         Train();
     }
-    console.log(oneFrameOfData.toString());
+    //console.log(oneFrameOfData.toString());
     HandleFrame(frame);
 });
 
