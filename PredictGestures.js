@@ -144,16 +144,13 @@ function CenterXData(){
             shiftedX = currentX + horizontalShift;
             oneFrameOfData.set(currentRow,currentColumn,0, shiftedX);
 
-            currentX = oneFrameOfData.get(currentRow,currentColumn,4);
+            currentX = oneFrameOfData.get(currentRow,currentColumn,3);
             shiftedX = currentX + horizontalShift;
-            oneFrameOfData.set(currentRow,currentColumn,4, shiftedX);
+            oneFrameOfData.set(currentRow,currentColumn,3, shiftedX);
         }
     }
     xValues = oneFrameOfData.slice([],[],[0,6,3]);
     var currentMeanAfter = xValues.mean();
-
-
-    console.log("before: " + currentMean + ", after: " + currentMeanAfter );
 }
 function CenterYData(){
     var yValues = oneFrameOfData.slice([],[],[1,6,3]);
@@ -165,19 +162,31 @@ function CenterYData(){
             shiftedY = currentY + horizontalShift;
             oneFrameOfData.set(currentRow,currentColumn,2, shiftedY);
 
-            currentY = oneFrameOfData.get(currentRow,currentColumn,5);
+            currentY = oneFrameOfData.get(currentRow,currentColumn,4);
             shiftedY = currentY + horizontalShift;
-            oneFrameOfData.set(currentRow,currentColumn,5, shiftedY);
+            oneFrameOfData.set(currentRow,currentColumn,4, shiftedY);
         }
     }
     yValues = oneFrameOfData.slice([],[],[1,6,3]);
     var currentMeanAfter = yValues.mean();
-
-
-    console.log("before: " + currentMean + ", after: " + currentMeanAfter );
 }
 function CenterZData(){
-    
+    var zValues = oneFrameOfData.slice([],[],[2,6,3]);
+    var currentMean = zValues.mean();
+    var horizontalShift = 0.5 - currentMean;
+    for(var currentRow = 0; currentRow < 5; currentRow++){
+        for(var currentColumn = 0; currentColumn < 4; currentColumn++){
+            currentZ = oneFrameOfData.get(currentRow,currentColumn,2);
+            shiftedZ = currentZ + horizontalShift;
+            oneFrameOfData.set(currentRow,currentColumn,2, shiftedZ);
+
+            currentZ = oneFrameOfData.get(currentRow,currentColumn,5);
+            shiftedZ = currentZ + horizontalShift;
+            oneFrameOfData.set(currentRow,currentColumn,5, shiftedZ);
+        }
+    }
+    zValues = oneFrameOfData.slice([],[],[2,6,3]);
+    var currentMeanAfter = zValues.mean();
 }
 
 
