@@ -14,7 +14,7 @@ var predictedClassLabels = nj.zeros(3);
 var n = 0;
 var m = 1;
 var c;
-var d = "3";
+var d = "2";
 
 Leap.loop(controllerOptions, function(frame)
 {
@@ -30,12 +30,16 @@ function Train(){
     console.log("training :");
     //console.log("size :" + train0.shape[3]);
     
-   // TrainHelper(train0,0);
-  //  TrainHelper(train1,1);
-
+    TrainHelper(train0,0);
+    TrainHelper(train1,1);
+    TrainHelper(train2,2);
     TrainHelper(train3,3);
     TrainHelper(train4,4);
     TrainHelper(train5,5);
+    TrainHelper(train6,6);
+    TrainHelper(train7,7);
+    TrainHelper(train8,8);
+    TrainHelper(train9,9);
 
     trainingCompleted = true;
 }
@@ -49,7 +53,7 @@ function Test(){
 
 function GotResults(err, result){
     PredictionAccuracy(result.label);
-    console.log(n , m , c);
+    console.log(n , m , c, d);
   //predictedClassLabels.set(testingSampleIndex,result.label);
 }
 
