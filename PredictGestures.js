@@ -14,7 +14,7 @@ var predictedClassLabels = nj.zeros(3);
 var n = 0;
 var m = 1;
 var c;
-var d = "0";
+var d = "2";
 
 Leap.loop(controllerOptions, function(frame)
 {
@@ -48,6 +48,13 @@ function Train(){
     TrainHelper(train1Robby,1);
     TrainHelper(train1Davis,1);
     TrainHelper(train1McLaughlin,1);
+    TrainHelper(train1Jimmo, 1);
+    TrainHelper(train1Li, 1);
+    TrainHelper(train1Rice, 1);
+
+    TrainHelper(train2Banaszewski, 2);
+    TrainHelper(train2Bongard, 2);
+    TrainHelper(train2Downs, 2);
 
     trainingCompleted = true;
     console.log("training complete");
