@@ -53,7 +53,7 @@ function Test(){
 
 function GotResults(err, result){
     PredictionAccuracy(result.label);
-    console.log(n , m , c, d);
+    console.log(parseInt(c));
   //predictedClassLabels.set(testingSampleIndex,result.label);
 }
 
