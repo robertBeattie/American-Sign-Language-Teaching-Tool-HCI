@@ -40,7 +40,9 @@ function Train(){
     TrainHelper(train7,7);
     TrainHelper(train8,8);
     TrainHelper(train9,9);
-
+    
+    TrainHelper(train1Bongard,1);
+    
     trainingCompleted = true;
 }
 
