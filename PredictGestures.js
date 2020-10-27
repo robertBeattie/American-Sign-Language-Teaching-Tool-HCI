@@ -16,10 +16,19 @@ var m = 1;
 var c;
 var d = "0";
 
+//(a) 0 = the program is waiting to see the user’s hand.
+//(b) 1 = at least one of the user’s hand is present.
 var programState = 0;
 Leap.loop(controllerOptions, function(frame)
 {
     clear();
+    if (programState==0) {
+        HandleState0(frame);
+    }
+    else if (programState==1) {
+        HandleState1(frame);
+    }
+        
     //if(!trainingCompleted){Train();}
     //console.log(oneFrameOfData.toString());
     HandleFrame(frame);
