@@ -17,7 +17,8 @@ var c;
 var d = "0";
 
 //(a) 0 = the program is waiting to see the user’s hand.
-//(b) 1 = at least one of the user’s hand is present.
+//(b) 1 = the user’s hand is present but not centered.
+//(c) 2 = the user’s hand is present and centered.
 var programState = 0;
 
 
@@ -36,8 +37,10 @@ Leap.loop(controllerOptions, function(frame)
 function DetermineState(frame){
     if (frame.hands.length == 0){
         programState = 0;
-    }else if(frame.hands.length >= 1){
+    }else if(frame.hands.length >= 1 && HandIsUncentered();){
         programState = 1;
+    }else {
+        programState = 2;
     }
 }
 function HandleState0(frame){
@@ -45,10 +48,27 @@ function HandleState0(frame){
     DrawImageToHelpUserPutTheirHandOverTheDevice();
 }
 function HandleState1(frame){
+    if(HandIsTooFarToTheLeft()){ DrawArrowRight()};
+    HandleFrame(frame);
+    //Test();
+   
+}
+function HandleState2(frame){
     HandleFrame(frame);
     //Test();
 }
+function HandIsUncentered(){
+    return
+}
+function HandIsTooFarToTheLeft(){
+    var xValues = oneFrameOfData.slice([],[],[0,6,3]);
+    return xValues.mean() < 0.25;
 
+}
+
+function DrawArrowRight(){
+    
+}
 function TrainKNNIfNotDoneYet(){
     //if(!trainingCompleted){Train();}
 }
