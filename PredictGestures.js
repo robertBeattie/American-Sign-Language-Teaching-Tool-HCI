@@ -29,10 +29,7 @@ Leap.loop(controllerOptions, function(frame)
     else if (programState==1) {
         HandleState1(frame);
     }
-        
-    
-    //console.log(oneFrameOfData.toString());
-    HandleFrame(frame);
+
 });
 function DetermineState(frame){
     if (frame.hands.length == 0){
@@ -46,7 +43,8 @@ function HandleState0(frame){
     DrawImageToHelpUserPutTheirHandOverTheDevice();
 }
 function HandleState1(frame){
-    
+    HandleFrame(frame);
+    //Test();
 }
 
 function TrainKNNIfNotDoneYet(){
@@ -54,7 +52,7 @@ function TrainKNNIfNotDoneYet(){
 }
 
 function DrawImageToHelpUserPutTheirHandOverTheDevice(){
-    
+
 }
 
 
@@ -377,7 +375,6 @@ function HandleFrame(frame){
     line(nx,-ny + innerHeight,px, -py + innerHeight);
  
     CenterData();
-   // Test();
  }
 
  function TransformCoordinates (normalizedPosition){
