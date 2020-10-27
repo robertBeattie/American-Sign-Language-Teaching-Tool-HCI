@@ -21,6 +21,9 @@ var d = "0";
 //(c) 2 = the user’s hand is present and centered.
 var programState = 0;
 
+var uncenteredX;
+var uncenteredY;
+var uncenteredZ;
 
 Leap.loop(controllerOptions, function(frame)
 {
@@ -31,24 +34,32 @@ Leap.loop(controllerOptions, function(frame)
     }
     else if (programState==1) {
         HandleState1(frame);
+    }else if (programState==2) {
+        HandleState2(frame);
     }
 
 });
 function DetermineState(frame){
     if (frame.hands.length == 0){
         programState = 0;
-    }else if(frame.hands.length >= 1 && HandIsUncentered();){
+    }else if(frame.hands.length >= 1 && HandIsUncentered()){
         programState = 1;
     }else {
         programState = 2;
     }
+    //console.log(programState);
 }
 function HandleState0(frame){
     TrainKNNIfNotDoneYet();
     DrawImageToHelpUserPutTheirHandOverTheDevice();
 }
 function HandleState1(frame){
-    if(HandIsTooFarToTheLeft()){ DrawArrowRight()};
+    if(HandIsTooFarToTheLeft()){ DrawArrowRight()}else
+    if(HandIsTooFarToTheRight()){ DrawArrowLeft()}else
+    if(HandIsTooFarToTheLow()){ DrawArrowUp()}else
+    if(HandIsTooFarToTheHigh()){ DrawArrowDown()}else
+    if(HandIsTooFarToTheClose()){ DrawArrowAway()}else
+    if(HandIsTooFarToTheFar()){ DrawArrowToward()};
     HandleFrame(frame);
     //Test();
    
@@ -58,17 +69,53 @@ function HandleState2(frame){
     //Test();
 }
 function HandIsUncentered(){
-    return
+    return HandIsTooFarToTheLeft() || 
+    HandIsTooFarToTheRight() ||
+    HandIsTooFarToTheLow() ||
+    HandIsTooFarToTheHigh() ||
+    HandIsTooFarToTheClose() ||
+    HandIsTooFarToTheFar();
 }
 function HandIsTooFarToTheLeft(){
-    var xValues = oneFrameOfData.slice([],[],[0,6,3]);
-    return xValues.mean() < 0.25;
+    return uncenteredX < 0.46;
+}
+function HandIsTooFarToTheRight(){
+    return uncenteredX > 0.54;
+}
+function HandIsTooFarToTheLow(){
+    return uncenteredY < 0.46;
+}
+function HandIsTooFarToTheHigh(){
+    return uncenteredY > 0.54;
+
+}
+function HandIsTooFarToTheClose(){
+    return uncenteredZ > 0.54;
+
+}
+function HandIsTooFarToTheFar(){
+    return uncenteredZ < 0.46;
 
 }
 
 function DrawArrowRight(){
-    
+   image(imgArrowRight,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
 }
+function DrawArrowLeft(){
+    image(imgArrowLeft,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+}
+function DrawArrowUp(){
+    image(imgArrowUp,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+ }
+ function DrawArrowDown(){
+     image(imgArrowDown,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+ }
+ function DrawArrowToward(){
+    image(imgArrowToward,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+ }
+ function DrawArrowAway(){
+     image(imgArrowAway,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+ }
 function TrainKNNIfNotDoneYet(){
     //if(!trainingCompleted){Train();}
 }
@@ -434,6 +481,7 @@ function CenterXData(){
     var xValues = oneFrameOfData.slice([],[],[0,6,3]);
     var currentMean = xValues.mean();
     var horizontalShift = 0.5 - currentMean;
+    uncenteredX = currentMean;
     for(var currentRow = 0; currentRow < 5; currentRow++){
         for(var currentColumn = 0; currentColumn < 4; currentColumn++){
             currentX = oneFrameOfData.get(currentRow,currentColumn,0);
@@ -452,6 +500,7 @@ function CenterYData(){
     var yValues = oneFrameOfData.slice([],[],[1,6,3]);
     var currentMean = yValues.mean();
     var horizontalShift = 0.5 - currentMean;
+    uncenteredY = currentMean;
     for(var currentRow = 0; currentRow < 5; currentRow++){
         for(var currentColumn = 0; currentColumn < 4; currentColumn++){
             currentY = oneFrameOfData.get(currentRow,currentColumn,2);
@@ -470,6 +519,7 @@ function CenterZData(){
     var zValues = oneFrameOfData.slice([],[],[2,6,3]);
     var currentMean = zValues.mean();
     var horizontalShift = 0.5 - currentMean;
+    uncenteredZ = currentMean;
     for(var currentRow = 0; currentRow < 5; currentRow++){
         for(var currentColumn = 0; currentColumn < 4; currentColumn++){
             currentZ = oneFrameOfData.get(currentRow,currentColumn,2);
