@@ -20,7 +20,7 @@ var d = "0";
 //(b) 1 = at least one of the user’s hand is present.
 var programState = 0;
 
-img = loadImage('https://imgur.com/NeU32F6');
+
 Leap.loop(controllerOptions, function(frame)
 {
     clear();
