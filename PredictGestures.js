@@ -30,7 +30,7 @@ Leap.loop(controllerOptions, function(frame)
         HandleState1(frame);
     }
         
-    //if(!trainingCompleted){Train();}
+    
     //console.log(oneFrameOfData.toString());
     HandleFrame(frame);
 });
@@ -42,11 +42,22 @@ function DetermineState(frame){
     }
 }
 function HandleState0(frame){
-
+    TrainKNNIfNotDoneYet();
+    DrawImageToHelpUserPutTheirHandOverTheDevice();
 }
 function HandleState1(frame){
     
 }
+
+function TrainKNNIfNotDoneYet(){
+    //if(!trainingCompleted){Train();}
+}
+
+function DrawImageToHelpUserPutTheirHandOverTheDevice(){
+    
+}
+
+
 function Train(){
     var start = new Date().getTime();
     console.log("training :");
