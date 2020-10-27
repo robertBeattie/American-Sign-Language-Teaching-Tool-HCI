@@ -348,8 +348,9 @@ function HandleFrame(frame){
 
  function TransformCoordinates (normalizedPosition){
     // Convert the normalized coordinates to span the canvas
-    x = window.innerWidth * normalizedPosition[0];
-    y = window.innerHeight * (normalizedPosition[1]);
+    //scale to top left 
+    x = window.innerWidth/2 * normalizedPosition[0];
+    y = (window.innerHeight/2 * (normalizedPosition[1])) + window.innerHeight/2;
 
     return[x,y];
 }
