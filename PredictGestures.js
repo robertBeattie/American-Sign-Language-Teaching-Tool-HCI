@@ -22,6 +22,7 @@ var programState = 0;
 Leap.loop(controllerOptions, function(frame)
 {
     clear();
+    DetermineState(frame);
     if (programState==0) {
         HandleState0(frame);
     }
@@ -33,7 +34,19 @@ Leap.loop(controllerOptions, function(frame)
     //console.log(oneFrameOfData.toString());
     HandleFrame(frame);
 });
+function DetermineState(frame){
+    if (frame.hands.length == 0){
+        programState = 0;
+    }else if(frame.hands.length >= 1){
+        programState = 1;
+    }
+}
+function HandleState0(frame){
 
+}
+function HandleState1(frame){
+    
+}
 function Train(){
     var start = new Date().getTime();
     console.log("training :");
