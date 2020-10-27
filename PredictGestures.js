@@ -87,15 +87,12 @@ function HandIsTooFarToTheLow(){
 }
 function HandIsTooFarToTheHigh(){
     return uncenteredY > 0.54;
-
 }
 function HandIsTooFarToTheClose(){
     return uncenteredZ > 0.54;
-
 }
 function HandIsTooFarToTheFar(){
     return uncenteredZ < 0.46;
-
 }
 
 function DrawArrowRight(){
@@ -480,8 +477,8 @@ function MirrorHand(frame){
 function CenterXData(){
     var xValues = oneFrameOfData.slice([],[],[0,6,3]);
     var currentMean = xValues.mean();
-    var horizontalShift = 0.5 - currentMean;
     uncenteredX = currentMean;
+    var horizontalShift = 0.5 - currentMean;
     for(var currentRow = 0; currentRow < 5; currentRow++){
         for(var currentColumn = 0; currentColumn < 4; currentColumn++){
             currentX = oneFrameOfData.get(currentRow,currentColumn,0);
@@ -499,8 +496,8 @@ function CenterXData(){
 function CenterYData(){
     var yValues = oneFrameOfData.slice([],[],[1,6,3]);
     var currentMean = yValues.mean();
-    var horizontalShift = 0.5 - currentMean;
     uncenteredY = currentMean;
+    var horizontalShift = 0.5 - currentMean;
     for(var currentRow = 0; currentRow < 5; currentRow++){
         for(var currentColumn = 0; currentColumn < 4; currentColumn++){
             currentY = oneFrameOfData.get(currentRow,currentColumn,2);
@@ -518,8 +515,9 @@ function CenterYData(){
 function CenterZData(){
     var zValues = oneFrameOfData.slice([],[],[2,6,3]);
     var currentMean = zValues.mean();
-    var horizontalShift = 0.5 - currentMean;
     uncenteredZ = currentMean;
+    var horizontalShift = 0.5 - currentMean;
+
     for(var currentRow = 0; currentRow < 5; currentRow++){
         for(var currentColumn = 0; currentColumn < 4; currentColumn++){
             currentZ = oneFrameOfData.get(currentRow,currentColumn,2);
