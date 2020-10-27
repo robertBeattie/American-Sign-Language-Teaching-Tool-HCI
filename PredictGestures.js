@@ -16,6 +16,7 @@ var m = 1;
 var c;
 var d = "0";
 
+var programState = 0;
 Leap.loop(controllerOptions, function(frame)
 {
     clear();
