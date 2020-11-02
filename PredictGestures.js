@@ -551,14 +551,8 @@ function SignIn(){
     var list = document.getElementById('users');
     //check for new user
     if(IsNewUser(username,list)){
-        var itemName = document.createElement('li');
-        itemName.id = String(username) + "_name";
-        itemName.innerHTML = String(username);
-        list.appendChild(itemName);
-
-        var itemSignIns = document.createElement('li');
-        itemSignIns.id = String(username) + "_signins";
-        list.appendChild(itemSignIns);
+        CreateNewUser(username,list);
+        CreateSignInItem(username,list);
     }
     console.log(list);
     console.log(list.innerHTML);
@@ -573,4 +567,15 @@ function IsNewUser(username,list){
         }
     }
     return usernameFound == false;
+}
+function CreateNewUser(username,list){
+    var itemName = document.createElement('li');
+    itemName.id = String(username) + "_name";
+    itemName.innerHTML = String(username);
+    list.appendChild(itemName);
+}
+function CreateSignInItem(username,list){
+    var itemSignIns = document.createElement('li');
+    itemSignIns.id = String(username) + "_signins";
+    list.appendChild(itemSignIns);
 }
