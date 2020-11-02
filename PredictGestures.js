@@ -9,6 +9,8 @@ var trainingCompleted = false;
 var oneFrameOfData = nj.zeros([5,4,6]);
 
 var predictedClassLabels = nj.zeros(3);
+
+//cheaty hack vvv
 var extenedArray = nj.zeros(5);
 //predicton accuracy
 var n = 0;
@@ -532,9 +534,6 @@ function CenterZData(){
     zValues = oneFrameOfData.slice([],[],[2,6,3]);
     var currentMeanAfter = zValues.mean();
 }
-
-
-
 function PredictionAccuracy(predicted){
     c = predicted;
     n++;
@@ -546,4 +545,7 @@ function PredictionAccuracy(predicted){
     }
 
     m = (((n-1) * m + cd)/n);
+}
+function SignIn(){
+    console.log("yo gamer gamer");
 }
