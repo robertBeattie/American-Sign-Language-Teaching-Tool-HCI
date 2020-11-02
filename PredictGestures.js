@@ -561,5 +561,7 @@ function SignIn(){
 }
 function IsNewUser(username,list){
     console.log(list);
+    var users = list.children;
+    console.log(users);
     return true;
 }
