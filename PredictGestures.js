@@ -553,5 +553,6 @@ function SignIn(){
     item.innerHTML = String(username);
     list.appendChild(item);
 
-    console.log("username: ", username);
+    console.log(list.innerHTML);
+
 }
