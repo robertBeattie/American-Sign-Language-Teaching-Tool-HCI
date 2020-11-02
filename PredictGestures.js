@@ -560,6 +560,6 @@ function SignIn(){
     return false;
 }
 function IsNewUser(username,list){
-    
+    console.log(list);
     return true;
 }
