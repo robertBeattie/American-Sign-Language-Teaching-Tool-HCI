@@ -556,11 +556,16 @@ function SignIn(){
         list.appendChild(item);
     }
 
-    console.log(list.innerHTML);
+    console.log(list);
     return false;
 }
 function IsNewUser(username,list){
     var usernameFound = false;
     var users = list.children;
-    return true;
+    for(var i = 0; i < users.length; i++){
+        if(username == user[i].innerHTML){
+            usernameFound = true;
+        }
+    }
+    return usernameFound == false;
 }
