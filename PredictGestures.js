@@ -551,5 +551,7 @@ function SignIn(){
     var list = document.getElementById('users');
     var item = document.createElement('li');
     item.innerHTML = String(username);
+    list.appendChild(item);
+
     console.log("username: ", username);
 }
