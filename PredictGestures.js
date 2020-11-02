@@ -552,6 +552,7 @@ function SignIn(){
     //check for new user
     if(IsNewUser(username,list)){
         var item = document.createElement('li');
+        item.id = String(username) + "_name";
         item.innerHTML = String(username);
         list.appendChild(item);
     }
@@ -563,7 +564,7 @@ function IsNewUser(username,list){
     var usernameFound = false;
     var users = list.children;
     for(var i = 0; i < users.length; i++){
-        if(username == user[i].innerHTML){
+        if(username == users[i].innerHTML){
             usernameFound = true;
         }
     }
