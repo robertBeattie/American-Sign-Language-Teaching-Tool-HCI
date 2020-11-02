@@ -551,13 +551,17 @@ function SignIn(){
     var list = document.getElementById('users');
     //check for new user
     if(IsNewUser(username,list)){
-        var item = document.createElement('li');
-        item.id = String(username) + "_name";
-        item.innerHTML = String(username);
-        list.appendChild(item);
-    }
+        var itemName = document.createElement('li');
+        itemName.id = String(username) + "_name";
+        itemName.innerHTML = String(username);
+        list.appendChild(itemName);
 
+        var itemSignIns = document.createElement('li');
+        itemSignIns.id = String(username) + "_signins";
+        list.appendChild(itemSignIns);
+    }
     console.log(list);
+    console.log(list.innerHTML);
     return false;
 }
 function IsNewUser(username,list){
