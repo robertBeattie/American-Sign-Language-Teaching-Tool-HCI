@@ -549,11 +549,17 @@ function PredictionAccuracy(predicted){
 function SignIn(){
     username = document.getElementById('username').value;
     var list = document.getElementById('users');
-    var item = document.createElement('li');
-    item.innerHTML = String(username);
-    list.appendChild(item);
+    //check for new user
+    if(IsNewUser(username,list)){
+        var item = document.createElement('li');
+        item.innerHTML = String(username);
+        list.appendChild(item);
+    }
 
     console.log(list.innerHTML);
     return false;
-
+}
+function IsNewUser(username,list){
+    
+    return true;
 }
