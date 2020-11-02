@@ -549,5 +549,6 @@ function PredictionAccuracy(predicted){
 function SignIn(){
     username = document.getElementById('username').value;
     var list = document.getElementById('users');
+    var item = document.createElement('li');
     console.log("username: ", username);
 }
