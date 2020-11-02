@@ -547,5 +547,6 @@ function PredictionAccuracy(predicted){
     m = (((n-1) * m + cd)/n);
 }
 function SignIn(){
-    console.log("yo gamer gamer");
+    username = document.getElementById('username').value;
+    console.log("username: ", username);
 }
