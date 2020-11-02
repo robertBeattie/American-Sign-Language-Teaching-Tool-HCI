@@ -550,5 +550,6 @@ function SignIn(){
     username = document.getElementById('username').value;
     var list = document.getElementById('users');
     var item = document.createElement('li');
+    item.innerHTML = String(username);
     console.log("username: ", username);
 }
