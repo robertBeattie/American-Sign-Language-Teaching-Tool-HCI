@@ -560,8 +560,7 @@ function SignIn(){
     return false;
 }
 function IsNewUser(username,list){
-    console.log(list);
+    var usernameFound = false;
     var users = list.children;
-    console.log(users);
     return true;
 }
