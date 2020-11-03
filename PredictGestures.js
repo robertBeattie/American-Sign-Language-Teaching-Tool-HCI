@@ -553,6 +553,10 @@ function SignIn(){
     if(IsNewUser(username,list)){
         CreateNewUser(username,list);
         CreateSignInItem(username,list);
+    }else{
+        ID = String(username) + "_signins";
+        listItem = document.getElementById(ID);
+        listItem.innerHTML = parseInt(listItem.innerHTML) + 1;
     }
     console.log(list);
     console.log(list.innerHTML);
@@ -577,5 +581,6 @@ function CreateNewUser(username,list){
 function CreateSignInItem(username,list){
     var itemSignIns = document.createElement('li');
     itemSignIns.id = String(username) + "_signins";
+    itemSignIns.innerHTML = String(0);
     list.appendChild(itemSignIns);
 }
