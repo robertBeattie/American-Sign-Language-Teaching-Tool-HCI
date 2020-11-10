@@ -28,6 +28,7 @@ var uncenteredY;
 var uncenteredZ;
 
 var digitToShow = 0;
+var timeSinceLastDigitChange = new Date();
 
 Leap.loop(controllerOptions, function(frame)
 {
@@ -599,9 +600,18 @@ function DrawLowerRightPanel(){
     }
 }
 function DetermineWhetherToSwitchDigits(){
+    if(TimeToSwitchDigits()){
+        SwitchDigits();
+    }
     if(digitToShow == 0){
         digitToShow = 1;
     }else {
         digitToShow = 0;
     }
+}
+function SwitchDigits() {
+
+}
+function TimeToSwitchDigits() {
+
 }
