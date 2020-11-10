@@ -589,5 +589,11 @@ function CreateSignInItem(username,list){
 }
 
 function DrawLowerRightPanel(){
-    
+    if(digitToShow == 0){
+        image(imgASL0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+    }else if(digitToShow == 1){
+        image(imgASL1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+    }else{
+
+    }
 }
