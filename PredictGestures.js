@@ -71,6 +71,7 @@ function HandleState1(frame){
 function HandleState2(frame){
     HandleFrame(frame);
     DrawLowerRightPanel();
+    DetermineWhetherToSwitchDigits();
     //Test();
 }
 function HandIsUncentered(){
@@ -595,5 +596,12 @@ function DrawLowerRightPanel(){
         image(imgASL1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
     }else{
 
+    }
+}
+function DetermineWhetherToSwitchDigits(){
+    if(digitToShow == 0){
+        digitToShow = 1;
+    }else {
+        digitToShow = 0;
     }
 }
