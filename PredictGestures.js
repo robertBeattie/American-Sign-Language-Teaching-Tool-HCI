@@ -27,6 +27,8 @@ var uncenteredX;
 var uncenteredY;
 var uncenteredZ;
 
+var digitToShow = 0;
+
 Leap.loop(controllerOptions, function(frame)
 {
     clear();
@@ -68,6 +70,7 @@ function HandleState1(frame){
 }
 function HandleState2(frame){
     HandleFrame(frame);
+    DrawLowerRightPanel();
     //Test();
 }
 function HandIsUncentered(){
@@ -583,4 +586,8 @@ function CreateSignInItem(username,list){
     itemSignIns.id = String(username) + "_signins";
     itemSignIns.innerHTML = String(0);
     list.appendChild(itemSignIns);
+}
+
+function DrawLowerRightPanel(){
+    
 }
