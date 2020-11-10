@@ -66,14 +66,14 @@ function HandleState1(frame){
     if(HandIsTooFarToTheClose()){ DrawArrowAway()}else
     if(HandIsTooFarToTheFar()){ DrawArrowToward()};
     HandleFrame(frame);
-    //Test();
+    Test();
    
 }
 function HandleState2(frame){
     HandleFrame(frame);
     DrawLowerRightPanel();
     DetermineWhetherToSwitchDigits();
-    //Test();
+    Test();
 }
 function HandIsUncentered(){
     return HandIsTooFarToTheLeft() || 
@@ -121,7 +121,7 @@ function DrawArrowUp(){
      image(imgArrowAway,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
  }
 function TrainKNNIfNotDoneYet(){
-    //if(!trainingCompleted){Train();}
+    if(!trainingCompleted){Train();}
 }
 
 function DrawImageToHelpUserPutTheirHandOverTheDevice(){
@@ -134,8 +134,8 @@ function Train(){
     console.log("training :");
     //console.log("size :" + train0.shape[3]);
     
-    /*
-    Attempt 1
+    
+    //Attempt 1
     TrainHelper(train0,0);
     TrainHelper(train1,1);
     TrainHelper(train2,2);
@@ -146,7 +146,7 @@ function Train(){
     TrainHelper(train7,7);
     TrainHelper(train8,8);
     TrainHelper(train9,9);
-
+/*
     TrainHelper(train0Robby,0);
     TrainHelper(train0Bongard,0);
     TrainHelper(train0Allison,0);
@@ -205,7 +205,7 @@ function Train(){
     TrainHelper(train9Bongard, 9);
     TrainHelper(train9Goldman, 9);
     TrainHelper(train9ILee, 9);
-*/
+
 
 
     TrainHelper(train_0, 0);
@@ -259,7 +259,7 @@ function Train(){
    //TrainHelper(train8Goldman, 8);
    TrainHelper(train8ILee, 8);
    //TrainHelper(train8JClark, 8);
-   
+   */
     trainingCompleted = true;
     var end = new Date().getTime();
     var time = end - start;
@@ -354,16 +354,17 @@ function TestExtended(){
     extenedArray.get(4) === 1 ){
         return 9;
     }else{
-        return 5;
+        return Math.floor(Math.random() * 5) + 1 + Math.floor(Math.random() * 5);
     }
     
 }
 
 function GotResults(err, result){
-    PredictionAccuracy(result.label);
-   // console.log(c);
-    console.log(TestExtended());
-  //predictedClassLabels.set(testingSampleIndex,result.label);
+    //PredictionAccuracy(result.label);
+    PredictionAccuracy(TestExtended());
+    console.log(m,n,c,d);
+    //console.log();
+   //predictedClassLabels.set(testingSampleIndex,result.label);
 }
 
 function TrainHelper(train,n){
@@ -606,6 +607,7 @@ function DetermineWhetherToSwitchDigits(){
    
 }
 function SwitchDigits() {
+    timeSinceLastDigitChange = new Date();
     if(digitToShow == 0){
         digitToShow = 1;
     }else {
@@ -613,5 +615,8 @@ function SwitchDigits() {
     }
 }
 function TimeToSwitchDigits() {
-    return false;
+    var currentTime = new Date();
+    var timeInMilliseconds = currentTime.getTime() - timeSinceLastDigitChange.getTime();
+    var timeInSeconds = timeInMilliseconds / 1000;
+    return timeInSeconds >= 5;
 }
