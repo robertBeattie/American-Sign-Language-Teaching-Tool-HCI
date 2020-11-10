@@ -13,9 +13,13 @@ var predictedClassLabels = nj.zeros(3);
 //cheaty hack vvv
 var extenedArray = nj.zeros(5);
 //predicton accuracy
+// number of frames looked at
 var n = 0;
+//meanPredictionAccuracy
 var m = 1;
+//current predicted digit 
 var c;
+//not in use v was current digit being guessed.
 var d = "0";
 
 //(a) 0 = the program is waiting to see the user’s hand.
@@ -362,7 +366,7 @@ function TestExtended(){
 function GotResults(err, result){
     //PredictionAccuracy(result.label);
     PredictionAccuracy(TestExtended());
-    console.log(m,n,c,d);
+    console.log(m,n,c,digitToShow);
     //console.log();
    //predictedClassLabels.set(testingSampleIndex,result.label);
 }
@@ -442,7 +446,11 @@ function HandleFrame(frame){
     [nx,ny] = TransformCoordinates(normalizedNextJoint);
     
     //color grey
-    stroke(strokeW * 35);
+    //stroke(strokeW * 35);
+    //color scaled based on m -> meanPredictionAccuracy
+    var red = (1 - m) * 255;
+    var green = m * 255;
+    stroke(color(red, green, 0));
     
     //line width
     strokeWeight(strokeW * 10);
@@ -544,7 +552,7 @@ function PredictionAccuracy(predicted){
     c = predicted;
     n++;
     var cd;
-    if(c==d) {
+    if(c==digitToShow) {
         cd = 1; 
     }else{
         cd = 0;
@@ -608,6 +616,10 @@ function DetermineWhetherToSwitchDigits(){
 }
 function SwitchDigits() {
     timeSinceLastDigitChange = new Date();
+    //resets mean accuracy 
+    m=1;
+    //resets count of frames
+    n=0;
     if(digitToShow == 0){
         digitToShow = 1;
     }else {
