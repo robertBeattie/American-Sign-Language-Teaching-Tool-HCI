@@ -603,15 +603,15 @@ function DetermineWhetherToSwitchDigits(){
     if(TimeToSwitchDigits()){
         SwitchDigits();
     }
+   
+}
+function SwitchDigits() {
     if(digitToShow == 0){
         digitToShow = 1;
     }else {
         digitToShow = 0;
     }
 }
-function SwitchDigits() {
-
-}
 function TimeToSwitchDigits() {
-
+    return false;
 }
