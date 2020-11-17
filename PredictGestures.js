@@ -34,6 +34,9 @@ var uncenteredZ;
 var digitToShow = 0;
 var timeSinceLastDigitChange = new Date();
 
+var digitsLearned = -1;
+var currentUser = "";
+
 Leap.loop(controllerOptions, function(frame)
 {
     clear();
@@ -366,7 +369,7 @@ function TestExtended(){
 function GotResults(err, result){
     //PredictionAccuracy(result.label);
     PredictionAccuracy(TestExtended());
-    console.log(m,n,c,digitToShow);
+    //console.log(m,n,c,digitToShow);
     //console.log();
    //predictedClassLabels.set(testingSampleIndex,result.label);
 }
@@ -567,10 +570,14 @@ function SignIn(){
     if(IsNewUser(username,list)){
         CreateNewUser(username,list);
         CreateSignInItem(username,list);
+        CreateDigitsLearnedItem(username,list);
     }else{
         ID = String(username) + "_signins";
         listItem = document.getElementById(ID);
         listItem.innerHTML = parseInt(listItem.innerHTML) + 1;
+
+        ID = String(username) + "_digitslearned";
+        digitsLearned = parseInt(document.getElementById(ID).innerHTML);
     }
     //console.log(list);
     console.log(list.innerHTML);
@@ -598,18 +605,41 @@ function CreateSignInItem(username,list){
     itemSignIns.innerHTML = String(0);
     list.appendChild(itemSignIns);
 }
+function CreateDigitsLearnedItem(username,list){
+    var itemSignIns = document.createElement('li');
+    itemSignIns.id = String(username) + "_digitslearned";
+    itemSignIns.innerHTML = String(-1);
+    list.appendChild(itemSignIns);
+    digitsLearned = -1;
+}
 
 function DrawLowerRightPanel(){
     if(digitToShow == 0){
         image(imgASL0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
     }else if(digitToShow == 1){
         image(imgASL1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-    }else{
-
+    }else if(digitToShow == 2){
+        image(imgASL2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+    }else if(digitToShow == 3){
+        image(imgASL3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+    }else if(digitToShow == 4){
+        image(imgASL4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+    }else if(digitToShow == 5){
+        image(imgASL5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+    }else if(digitToShow == 6){
+        image(imgASL6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+    }else if(digitToShow == 7){
+        image(imgASL7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+    }else if(digitToShow == 8){
+        image(imgASL8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+    }else if(digitToShow == 9){
+        image(imgASL9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
     }
 }
 function DetermineWhetherToSwitchDigits(){
     if(TimeToSwitchDigits()){
+        console.log("Time to Switch: ", m);
+        DigitLearned();
         SwitchDigits();
     }
    
@@ -620,11 +650,25 @@ function SwitchDigits() {
     m=1;
     //resets count of frames
     n=0;
-    if(digitToShow == 0){
-        digitToShow = 1;
-    }else {
+    console.log(digitToShow, digitsLearned);
+    if(digitsLearned != -1 && digitToShow != 9 && digitToShow <= digitsLearned){
+        digitToShow++;
+    }else{
         digitToShow = 0;
     }
+}
+function DigitLearned(){
+
+    if(digitsLearned != 9 && digitsLearned + 1 == digitToShow && m >= 0.5){
+        digitsLearned++;
+        console.log("learned new digit: ", digitsLearned);
+        if(currentUser != ""){
+            ID = String(currentUser) + "_digitslearned";
+            listItem = document.getElementById(ID);
+            listItem.innerHTML = String(digitsLearned);
+        }
+    }
+
 }
 function TimeToSwitchDigits() {
     var currentTime = new Date();
