@@ -16,7 +16,7 @@ var extenedArray = nj.zeros(5);
 // number of frames looked at
 var n = 0;
 //meanPredictionAccuracy
-var m = 1;
+var m = 0;
 //current predicted digit 
 var c;
 //not in use v was current digit being guessed.
@@ -73,14 +73,14 @@ function HandleState1(frame){
     if(HandIsTooFarToTheClose()){ DrawArrowAway()}else
     if(HandIsTooFarToTheFar()){ DrawArrowToward()};
     HandleFrame(frame);
-    Test();
+    TestExtended();
    
 }
 function HandleState2(frame){
     HandleFrame(frame);
     DrawLowerRightPanel();
     DetermineWhetherToSwitchDigits();
-    Test();
+    TestExtended();
 }
 function HandIsUncentered(){
     return HandIsTooFarToTheLeft() || 
@@ -281,13 +281,14 @@ function Test(){
 }
 
 function TestExtended(){
+    var r;
     //0
     if( extenedArray.get(0) === 0 &&
         extenedArray.get(1) === 0 &&
         extenedArray.get(2) === 0 &&
         extenedArray.get(3) === 0 &&
         extenedArray.get(4) === 0 ){
-            return 0;
+            r = 0;
         }else
     //1
     if( extenedArray.get(0) === 0 &&
@@ -295,7 +296,7 @@ function TestExtended(){
     extenedArray.get(2) === 0 &&
     extenedArray.get(3) === 0 &&
     extenedArray.get(4) === 0 ){
-        return 1;
+        r = 1;
     }else
     //2
     if( extenedArray.get(0) === 0 &&
@@ -303,7 +304,7 @@ function TestExtended(){
     extenedArray.get(2) === 1 &&
     extenedArray.get(3) === 0 &&
     extenedArray.get(4) === 0 ){
-        return 2;
+        r = 2;
     }else
     //3
     if( extenedArray.get(0) === 1 &&
@@ -311,7 +312,7 @@ function TestExtended(){
     extenedArray.get(2) === 1 &&
     extenedArray.get(3) === 0 &&
     extenedArray.get(4) === 0 ){
-        return 3;
+        r = 3;
     }else
     //4
     if( extenedArray.get(0) === 0 &&
@@ -319,7 +320,7 @@ function TestExtended(){
     extenedArray.get(2) === 1 &&
     extenedArray.get(3) === 1 &&
     extenedArray.get(4) === 1 ){
-        return 4;
+        r = 4;
     }else
     //5
     if( extenedArray.get(0) === 1 &&
@@ -327,7 +328,7 @@ function TestExtended(){
     extenedArray.get(2) === 1 &&
     extenedArray.get(3) === 1 &&
     extenedArray.get(4) === 1 ){
-        return 5;
+        r = 5;
     }else
     //6
     if( extenedArray.get(0) === 0 &&
@@ -335,7 +336,7 @@ function TestExtended(){
     extenedArray.get(2) === 1 &&
     extenedArray.get(3) === 1 &&
     extenedArray.get(4) === 0 ){
-        return 6;
+        r = 6;
     }else
     //7
     if( extenedArray.get(0) === 0 &&
@@ -343,7 +344,7 @@ function TestExtended(){
     extenedArray.get(2) === 1 &&
     extenedArray.get(3) === 0 &&
     extenedArray.get(4) === 1 ){
-        return 7;
+        r = 7;
     }else
     //8
     if( extenedArray.get(0) === 0 &&
@@ -351,7 +352,7 @@ function TestExtended(){
     extenedArray.get(2) === 0 &&
     extenedArray.get(3) === 1 &&
     extenedArray.get(4) === 1 ){
-        return 8;
+        r = 8;
     }else
     //9
     if( extenedArray.get(0) === 0 &&
@@ -359,19 +360,20 @@ function TestExtended(){
     extenedArray.get(2) === 1 &&
     extenedArray.get(3) === 1 &&
     extenedArray.get(4) === 1 ){
-        return 9;
+        r = 9;
     }else{
-        return Math.floor(Math.random() * 5) + 1 + Math.floor(Math.random() * 5);
+        r = Math.floor(Math.random() * 5) + 1 + Math.floor(Math.random() * 5);
     }
-    
+    PredictionAccuracy(r);
+    return r;
 }
 
 function GotResults(err, result){
     //PredictionAccuracy(result.label);
-    PredictionAccuracy(TestExtended());
+    //PredictionAccuracy(TestExtended());
     //console.log(m,n,c,digitToShow);
     //console.log();
-   //predictedClassLabels.set(testingSampleIndex,result.label);
+    predictedClassLabels.set(testingSampleIndex,result.label);
 }
 
 function TrainHelper(train,n){
@@ -650,7 +652,7 @@ function SwitchDigits() {
     m=1;
     //resets count of frames
     n=0;
-    console.log(digitToShow, digitsLearned);
+   // console.log(digitToShow, digitsLearned);
     if(digitsLearned != -1 && digitToShow != 9 && digitToShow <= digitsLearned){
         digitToShow++;
     }else{
