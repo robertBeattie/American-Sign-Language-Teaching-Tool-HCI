@@ -39,6 +39,10 @@ var timeToSwitchDigits = 5;
 
 var digitsLearned = -1;
 var currentUser = "";
+var isShowingNumbers = true;
+
+var letterToShow = 0;
+var lettersLearned = -1;
 
 Leap.loop(controllerOptions, function(frame)
 {
@@ -83,7 +87,12 @@ function HandleState1(frame){
 function HandleState2(frame){
     HandleFrame(frame);
     DrawLowerRightPanel();
-    DetermineWhetherToSwitchDigits();
+    if(isShowingNumbers){
+        DetermineWhetherToSwitchDigits();
+    }else{
+        DetermineWhetherToSwitchLetters();
+    }
+   
     TestExtended();
 }
 function HandIsUncentered(){
@@ -585,6 +594,8 @@ function SignIn(){
         CreateSignInItem(username,list);
         CreateDigitsLearnedItem(username,list);
         CreateDigitsPercentsItem(username,list);
+        CreateLettersLearnedItem(username,list);
+        CreateLettersPercentsItem(username,list);
     }else{
         ID = String(username) + "_signins";
         listItem = document.getElementById(ID);
@@ -592,11 +603,21 @@ function SignIn(){
 
         ID = String(username) + "_digitslearned";
         digitsLearned = parseInt(document.getElementById(ID).innerHTML);
+
+        ID = String(username) + "_letterslearned";
+        lettersLearned = parseInt(document.getElementById(ID).innerHTML);
     }
     //console.log(list);
     console.log(list.innerHTML);
     return false;
 }
+function Letters(){
+    isShowingNumbers = false;
+}
+function Numbers(){
+    isShowingNumbers = true;
+}
+
 function IsNewUser(username,list){
     var usernameFound = false;
     var users = list.children;
@@ -634,52 +655,180 @@ function CreateDigitsPercentsItem(username,list){
         list.appendChild(itemDigitsPercents);
     }
 }
+function CreateLettersLearnedItem(username,list){
+    var itemLettersLearned = document.createElement('li');
+    itemLettersLearned.id = String(username) + "_letterslearned";
+    itemLettersLearned.innerHTML = String(-1);
+    list.appendChild(itemLettersLearned);
+    lettersLearned = -1;
+}
+function CreateLettersPercentsItem(username,list){
+    for(var i=0; i <= 26; i++){
+        var itemLettersPercents = document.createElement('li');
+        itemLettersPercents.id = String(username) + "_lettersPercents_" + String(i);
+        itemLettersPercents.innerHTML = String(0);
+        list.appendChild(itemLettersPercents);
+    }
+}
 function DrawLowerRightPanel(){
-    if(!TimeToSwitchDigitImage()){
-        if(digitToShow == 0){
-            image(imgASL0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 1){
-            image(imgASL1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 2){
-            image(imgASL2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 3){
-            image(imgASL3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 4){
-            image(imgASL4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 5){
-            image(imgASL5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 6){
-            image(imgASL6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 7){
-            image(imgASL7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 8){
-            image(imgASL8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 9){
-            image(imgASL9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+    if(isShowingNumbers){
+        if(!TimeToSwitchDigitImage()){
+            if(digitToShow == 0){
+                image(imgASL0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 1){
+                image(imgASL1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 2){
+                image(imgASL2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 3){
+                image(imgASL3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 4){
+                image(imgASL4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 5){
+                image(imgASL5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 6){
+                image(imgASL6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 7){
+                image(imgASL7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 8){
+                image(imgASL8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 9){
+                image(imgASL9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }
+        }else{
+            if(digitToShow == 0){
+                image(imgNum0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 1){
+                image(imgNum1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 2){
+                image(imgNum2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 3){
+                image(imgNum3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 4){
+                image(imgNum4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 5){
+                image(imgNum5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 6){
+                image(imgNum6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 7){
+                image(imgNum7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 8){
+                image(imgNum8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(digitToShow == 9){
+                image(imgNum9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }
         }
-    }else{
-        if(digitToShow == 0){
-            image(imgNum0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 1){
-            image(imgNum1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 2){
-            image(imgNum2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 3){
-            image(imgNum3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 4){
-            image(imgNum4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 5){
-            image(imgNum5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 6){
-            image(imgNum6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 7){
-            image(imgNum7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 8){
-            image(imgNum8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-        }else if(digitToShow == 9){
-            image(imgNum9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+    }else {
+        if(!TimeToSwitchDigitImage()){
+            if(letterToShow == 0){
+                image(imgASLA,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 1){
+                image(imgASLB,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 2){
+                image(imgASLC,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 3){
+                image(imgASLD,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 4){
+                image(imgASLE,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 5){
+                image(imgASLF,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 6){
+                image(imgASLG,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 7){
+                image(imgASLH,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 8){
+                image(imgASLI,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 9){
+                image(imgASLJ,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 10){
+                image(imgASLK,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 11){
+                image(imgASLL,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 12){
+                image(imgASLM,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 13){
+                image(imgASLN,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 14){
+                image(imgASLO,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 15){
+                image(imgASLP,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 16){
+                image(imgASLQ,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 17){
+                image(imgASLR,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 18){
+                image(imgASLS,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 19){
+                image(imgASLT,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 20){
+                image(imgASLU,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 21){
+                image(imgASLV,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 22){
+                image(imgASLW,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 23){
+                image(imgASLX,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 24){
+                image(imgASLY,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 25){
+                image(imgASLZ,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }
+        }else{
+            if(letterToShow == 0){
+                image(imgLA,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 1){
+                image(imgLB,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 2){
+                image(imgLC,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 3){
+                image(imgLD,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 4){
+                image(imgLE,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 5){
+                image(imgLF,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 6){
+                image(imgLG,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 7){
+                image(imgLH,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 8){
+                image(imgLI,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 9){
+                image(imgLJ,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 10){
+                image(imgLK,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 11){
+                image(imgLL,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 12){
+                image(imgLM,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 13){
+                image(imgLN,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 14){
+                image(imgLO,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 15){
+                image(imgLP,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 16){
+                image(imgLQ,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 17){
+                image(imgLR,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 18){
+                image(imgLS,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 19){
+                image(imgLT,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 20){
+                image(imgLU,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 21){
+                image(imgLV,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 22){
+                image(imgLW,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 23){
+                image(imgLX,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 24){
+                image(imgLY,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }else if(letterToShow == 25){
+                image(imgLZ,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }
         }
     }
+    
 }
 
 function DetermineWhetherToSwitchDigits(){
@@ -688,6 +837,15 @@ function DetermineWhetherToSwitchDigits(){
         DigitLearned();
         SwitchDigits();
         CalculateReduceTime();
+    }
+   
+}
+function DetermineWhetherToSwitchLetters(){
+    if(TimeToSwitchDigits()){
+        console.log("Time to Switch: ", m);
+        LetterLearned();
+        SwitchLetters();
+        CalculateReduceTimeLetters();
     }
    
 }
@@ -711,6 +869,23 @@ function SwitchDigits() {
         digitToShow = 0;
     }
 }
+function SwitchLetters() {
+    timeSinceLastDigitChange = new Date();
+    ID = String(currentUser) + "_lettersPercents_" + letterToShow;
+    listItem = document.getElementById(ID);
+    listItem.innerHTML = String(m);
+    //resets mean accuracy 
+    m=1;
+    //resets count of frames
+    n=0;
+    
+
+    if(letterLearned != -1 && letterToShow != 26 && letterToShow <= letterLearned){
+        letterToShow++;
+    }else{
+        letterToShow = 0;
+    }
+}
 function DigitLearned(){
 
     if(digitsLearned != 9 && digitsLearned + 1 == digitToShow && m >= 0.5){
@@ -721,6 +896,17 @@ function DigitLearned(){
             listItem = document.getElementById(ID);
             listItem.innerHTML = String(digitsLearned);
       //  }
+    }
+
+}
+function LetterLearned(){
+
+    if(lettersLearned != 26 && lettersLearned + 1 == letterToShow && m >= 0.5){
+        lettersLearned++;
+        console.log("learned new letter: ", String.fromCharCode(97 + lettersLearned));
+            ID = String(currentUser) + "_letterslearned";
+            listItem = document.getElementById(ID);
+            listItem.innerHTML = String(digitsLearned);
     }
 
 }
@@ -771,4 +957,20 @@ function CalculateReduceTime(){
      }else{
         timeToSwitchDigits = 5;
      }
- }
+}
+
+function CalculateReduceTimeLetters(){ 
+     ID = String(currentUser) + "_lettersPercents_" + letterToShow;
+     listItem = document.getElementById(ID);
+     previousPercent = parseFloat(listItem.innerHTML);
+     console.log(previousPercent);
+     if(previousPercent >= 0.95){
+        timeToSwitchDigits = 2;
+     }else if(previousPercent >= 0.80){
+        timeToSwitchDigits = 3;
+     }else if(previousPercent >= 0.60){
+        timeToSwitchDigits = 4;
+     }else{
+        timeToSwitchDigits = 5;
+     }
+}
