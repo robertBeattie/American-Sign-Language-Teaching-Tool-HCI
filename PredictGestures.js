@@ -5,6 +5,7 @@ var controllerOptions = {};
 var frameIndex = 0;
 var frameflip = 0;
 var trainingCompleted = false;
+var initSignIn = false;
 
 var oneFrameOfData = nj.zeros([5,4,6]);
 
@@ -31,8 +32,10 @@ var uncenteredX;
 var uncenteredY;
 var uncenteredZ;
 
+
 var digitToShow = 0;
 var timeSinceLastDigitChange = new Date();
+var timeToSwitchDigits = 5;
 
 var digitsLearned = -1;
 var currentUser = "";
@@ -62,6 +65,7 @@ function DetermineState(frame){
     //console.log(programState);
 }
 function HandleState0(frame){
+    SignInIfNotDoneYet();
     TrainKNNIfNotDoneYet();
     DrawImageToHelpUserPutTheirHandOverTheDevice();
 }
@@ -130,7 +134,13 @@ function DrawArrowUp(){
 function TrainKNNIfNotDoneYet(){
     if(!trainingCompleted){Train();}
 }
-
+function SignInIfNotDoneYet(){
+    if(!initSignIn){
+        SignIn();
+        initSignIn = true;
+    }
+    
+}
 function DrawImageToHelpUserPutTheirHandOverTheDevice(){
     image(imgWaiting,0,0,window.innerWidth/2,window.innerHeight/2);
 }
@@ -568,11 +578,13 @@ function PredictionAccuracy(predicted){
 function SignIn(){
     username = document.getElementById('username').value;
     var list = document.getElementById('users');
+    currentUser = username;
     //check for new user
     if(IsNewUser(username,list)){
         CreateNewUser(username,list);
         CreateSignInItem(username,list);
         CreateDigitsLearnedItem(username,list);
+        CreateDigitsPercentsItem(username,list);
     }else{
         ID = String(username) + "_signins";
         listItem = document.getElementById(ID);
@@ -608,51 +620,91 @@ function CreateSignInItem(username,list){
     list.appendChild(itemSignIns);
 }
 function CreateDigitsLearnedItem(username,list){
-    var itemSignIns = document.createElement('li');
-    itemSignIns.id = String(username) + "_digitslearned";
-    itemSignIns.innerHTML = String(-1);
-    list.appendChild(itemSignIns);
+    var itemDigitsLearned = document.createElement('li');
+    itemDigitsLearned.id = String(username) + "_digitslearned";
+    itemDigitsLearned.innerHTML = String(-1);
+    list.appendChild(itemDigitsLearned);
     digitsLearned = -1;
 }
-
-function DrawLowerRightPanel(){
-    if(digitToShow == 0){
-        image(imgASL0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-    }else if(digitToShow == 1){
-        image(imgASL1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-    }else if(digitToShow == 2){
-        image(imgASL2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-    }else if(digitToShow == 3){
-        image(imgASL3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-    }else if(digitToShow == 4){
-        image(imgASL4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-    }else if(digitToShow == 5){
-        image(imgASL5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-    }else if(digitToShow == 6){
-        image(imgASL6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-    }else if(digitToShow == 7){
-        image(imgASL7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-    }else if(digitToShow == 8){
-        image(imgASL8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-    }else if(digitToShow == 9){
-        image(imgASL9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+function CreateDigitsPercentsItem(username,list){
+    for(var i=0; i <= 9; i++){
+        var itemDigitsPercents = document.createElement('li');
+        itemDigitsPercents.id = String(username) + "_digitsPercents_" + String(i);
+        itemDigitsPercents.innerHTML = String(0);
+        list.appendChild(itemDigitsPercents);
     }
 }
+function DrawLowerRightPanel(){
+    if(!TimeToSwitchDigitImage()){
+        if(digitToShow == 0){
+            image(imgASL0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 1){
+            image(imgASL1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 2){
+            image(imgASL2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 3){
+            image(imgASL3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 4){
+            image(imgASL4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 5){
+            image(imgASL5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 6){
+            image(imgASL6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 7){
+            image(imgASL7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 8){
+            image(imgASL8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 9){
+            image(imgASL9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }
+    }else{
+        if(digitToShow == 0){
+            image(imgNum0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 1){
+            image(imgNum1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 2){
+            image(imgNum2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 3){
+            image(imgNum3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 4){
+            image(imgNum4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 5){
+            image(imgNum5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 6){
+            image(imgNum6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 7){
+            image(imgNum7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 8){
+            image(imgNum8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }else if(digitToShow == 9){
+            image(imgNum9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }
+    }
+}
+
 function DetermineWhetherToSwitchDigits(){
     if(TimeToSwitchDigits()){
         console.log("Time to Switch: ", m);
         DigitLearned();
         SwitchDigits();
+        CalculateReduceTime();
     }
    
 }
 function SwitchDigits() {
     timeSinceLastDigitChange = new Date();
+    //store there last result
+  //  if(currentUser != ""){
+        ID = String(currentUser) + "_digitsPercents_" + digitToShow;
+        listItem = document.getElementById(ID);
+        listItem.innerHTML = String(m);
+  //  }
     //resets mean accuracy 
     m=1;
     //resets count of frames
     n=0;
-   // console.log(digitToShow, digitsLearned);
+    
+
     if(digitsLearned != -1 && digitToShow != 9 && digitToShow <= digitsLearned){
         digitToShow++;
     }else{
@@ -664,11 +716,11 @@ function DigitLearned(){
     if(digitsLearned != 9 && digitsLearned + 1 == digitToShow && m >= 0.5){
         digitsLearned++;
         console.log("learned new digit: ", digitsLearned);
-        if(currentUser != ""){
+       // if(currentUser != ""){
             ID = String(currentUser) + "_digitslearned";
             listItem = document.getElementById(ID);
             listItem.innerHTML = String(digitsLearned);
-        }
+      //  }
     }
 
 }
@@ -676,5 +728,47 @@ function TimeToSwitchDigits() {
     var currentTime = new Date();
     var timeInMilliseconds = currentTime.getTime() - timeSinceLastDigitChange.getTime();
     var timeInSeconds = timeInMilliseconds / 1000;
-    return timeInSeconds >= 5;
+    return timeInSeconds >= timeToSwitchDigits;
 }
+function TimeToSwitchDigitImage() {
+    var currentTime = new Date();
+    var timeInMilliseconds = currentTime.getTime() - timeSinceLastDigitChange.getTime();
+    var timeInSeconds = timeInMilliseconds / 1000;
+    return timeInSeconds >= CalculateTimeDeltaToSwitchDigitImage();
+}
+
+function CalculateTimeDeltaToSwitchDigitImage(){
+   // if(currentUser == ""){ return  timeToSwitchDigits * 2}
+
+    ID = String(currentUser) + "_digitsPercents_" + digitToShow;
+    listItem = document.getElementById(ID);
+    previousPercent = parseFloat(listItem.innerHTML);
+    console.log(previousPercent);
+    if(previousPercent >= 0.95){
+        return 0;
+    }else if(previousPercent >= 0.80){
+        return timeToSwitchDigits * .4;
+    }else if(previousPercent >= 0.60){
+        return timeToSwitchDigits * .8;
+    }else{
+        return timeToSwitchDigits * 2;
+    }
+}
+
+function CalculateReduceTime(){
+    // if(currentUser == ""){ return  timeToSwitchDigits * 2}
+ 
+     ID = String(currentUser) + "_digitsPercents_" + digitToShow;
+     listItem = document.getElementById(ID);
+     previousPercent = parseFloat(listItem.innerHTML);
+     console.log(previousPercent);
+     if(previousPercent >= 0.95){
+        timeToSwitchDigits = 2;
+     }else if(previousPercent >= 0.80){
+        timeToSwitchDigits = 3;
+     }else if(previousPercent >= 0.60){
+        timeToSwitchDigits = 4;
+     }else{
+        timeToSwitchDigits = 5;
+     }
+ }
