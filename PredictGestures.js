@@ -81,7 +81,12 @@ function HandleState1(frame){
     if(HandIsTooFarToTheClose()){ DrawArrowAway()}else
     if(HandIsTooFarToTheFar()){ DrawArrowToward()};
     HandleFrame(frame);
-    TestExtended();
+    if(isShowingNumbers){
+        TestExtended();
+    }else{
+        TestExtendedLetters();
+    }
+    
    
 }
 function HandleState2(frame){
@@ -93,7 +98,11 @@ function HandleState2(frame){
         DetermineWhetherToSwitchLetters();
     }
    
-    TestExtended();
+    if(isShowingNumbers){
+        TestExtended();
+    }else{
+        TestExtendedLetters();
+    }
 }
 function HandIsUncentered(){
     return HandIsTooFarToTheLeft() || 
@@ -387,6 +396,116 @@ function TestExtended(){
     return r;
 }
 
+function TestExtendedLetters(){
+    //console.log(extenedArray.tolist());
+    var r = '';
+    //acemnost
+    if( extenedArray.get(0) === 0 &&
+        extenedArray.get(1) === 0 &&
+        extenedArray.get(2) === 0 &&
+        extenedArray.get(3) === 0 &&
+        extenedArray.get(4) === 0 ){
+            r += 'acemnost';
+        }else
+    //dgxz
+    if( extenedArray.get(0) === 0 &&
+    extenedArray.get(1) === 1 &&
+    extenedArray.get(2) === 0 &&
+    extenedArray.get(3) === 0 &&
+    extenedArray.get(4) === 0 ){
+        r += 'dgxz';
+    }else
+    //hkruv
+    if( extenedArray.get(0) === 0 &&
+    extenedArray.get(1) === 1 &&
+    extenedArray.get(2) === 1 &&
+    extenedArray.get(3) === 0 &&
+    extenedArray.get(4) === 0 ){
+        r += 'hkruv';
+    }else
+    //3
+    if( extenedArray.get(0) === 1 &&
+    extenedArray.get(1) === 1 &&
+    extenedArray.get(2) === 1 &&
+    extenedArray.get(3) === 0 &&
+    extenedArray.get(4) === 0 ){
+        r += '';
+    }else
+    //b
+    if( extenedArray.get(0) === 0 &&
+    extenedArray.get(1) === 1 &&
+    extenedArray.get(2) === 1 &&
+    extenedArray.get(3) === 1 &&
+    extenedArray.get(4) === 1 ){
+        r += 'b';
+    }else
+    //5
+    if( extenedArray.get(0) === 1 &&
+    extenedArray.get(1) === 1 &&
+    extenedArray.get(2) === 1 &&
+    extenedArray.get(3) === 1 &&
+    extenedArray.get(4) === 1 ){
+        r += '';
+    }else
+    //w
+    if( extenedArray.get(0) === 0 &&
+    extenedArray.get(1) === 1 &&
+    extenedArray.get(2) === 1 &&
+    extenedArray.get(3) === 1 &&
+    extenedArray.get(4) === 0 ){
+        r += 'w';
+    }else
+    //7
+    if( extenedArray.get(0) === 0 &&
+    extenedArray.get(1) === 1 &&
+    extenedArray.get(2) === 1 &&
+    extenedArray.get(3) === 0 &&
+    extenedArray.get(4) === 1 ){
+        r += '';
+    }else
+    //8
+    if( extenedArray.get(0) === 0 &&
+    extenedArray.get(1) === 1 &&
+    extenedArray.get(2) === 0 &&
+    extenedArray.get(3) === 1 &&
+    extenedArray.get(4) === 1 ){
+        r += '';
+    }else
+    //f
+    if( extenedArray.get(0) === 0 &&
+    extenedArray.get(1) === 0 &&
+    extenedArray.get(2) === 1 &&
+    extenedArray.get(3) === 1 &&
+    extenedArray.get(4) === 1 ){
+        r += 'f';
+    }else
+    //ij
+    if( extenedArray.get(0) === 0 &&
+    extenedArray.get(1) === 0 &&
+    extenedArray.get(2) === 0 &&
+    extenedArray.get(3) === 0 &&
+    extenedArray.get(4) === 1 ){
+        r += 'ij';
+    }else
+    //lpq
+    if( extenedArray.get(0) === 1 &&
+    extenedArray.get(1) === 1 &&
+    extenedArray.get(2) === 0 &&
+    extenedArray.get(3) === 0 &&
+    extenedArray.get(4) === 0 ){
+        r += 'lpq';
+    }else
+    //y
+    if( extenedArray.get(0) === 1 &&
+    extenedArray.get(1) === 0 &&
+    extenedArray.get(2) === 0 &&
+    extenedArray.get(3) === 0 &&
+    extenedArray.get(4) === 1 ){
+        r += 'y';
+    }
+    PredictionAccuracyLetters(r);
+    return r;
+}
 function GotResults(err, result){
     //PredictionAccuracy(result.label);
     //PredictionAccuracy(TestExtended());
@@ -581,6 +700,20 @@ function PredictionAccuracy(predicted){
     }else{
         cd = 0;
     }
+    
+    
+
+    m = (((n-1) * m + cd)/n);
+}
+function PredictionAccuracyLetters(predicted){
+    c = predicted;
+    n++;
+    var cd;
+    if(c.toString().includes(String.fromCharCode(97 + letterToShow))) {
+        cd = 1; 
+    }else{
+        cd = 0;
+    }
 
     m = (((n-1) * m + cd)/n);
 }
@@ -613,9 +746,11 @@ function SignIn(){
 }
 function Letters(){
     isShowingNumbers = false;
+    return false;
 }
 function Numbers(){
     isShowingNumbers = true;
+    return false;
 }
 
 function IsNewUser(username,list){
@@ -663,7 +798,7 @@ function CreateLettersLearnedItem(username,list){
     lettersLearned = -1;
 }
 function CreateLettersPercentsItem(username,list){
-    for(var i=0; i <= 26; i++){
+    for(var i=0; i < 26; i++){
         var itemLettersPercents = document.createElement('li');
         itemLettersPercents.id = String(username) + "_lettersPercents_" + String(i);
         itemLettersPercents.innerHTML = String(0);
@@ -718,7 +853,7 @@ function DrawLowerRightPanel(){
             }
         }
     }else {
-        if(!TimeToSwitchDigitImage()){
+        if(!TimeToSwitchLetterImage()){
             if(letterToShow == 0){
                 image(imgASLA,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
             }else if(letterToShow == 1){
@@ -880,7 +1015,7 @@ function SwitchLetters() {
     n=0;
     
 
-    if(letterLearned != -1 && letterToShow != 26 && letterToShow <= letterLearned){
+    if(lettersLearned != -1 && letterToShow != 26 && letterToShow <= lettersLearned){
         letterToShow++;
     }else{
         letterToShow = 0;
@@ -922,6 +1057,12 @@ function TimeToSwitchDigitImage() {
     var timeInSeconds = timeInMilliseconds / 1000;
     return timeInSeconds >= CalculateTimeDeltaToSwitchDigitImage();
 }
+function TimeToSwitchLetterImage() {
+    var currentTime = new Date();
+    var timeInMilliseconds = currentTime.getTime() - timeSinceLastDigitChange.getTime();
+    var timeInSeconds = timeInMilliseconds / 1000;
+    return timeInSeconds >= CalculateTimeDeltaToSwitchLetterImage();
+}
 
 function CalculateTimeDeltaToSwitchDigitImage(){
    // if(currentUser == ""){ return  timeToSwitchDigits * 2}
@@ -940,6 +1081,23 @@ function CalculateTimeDeltaToSwitchDigitImage(){
         return timeToSwitchDigits * 2;
     }
 }
+function CalculateTimeDeltaToSwitchLetterImage(){
+    // if(currentUser == ""){ return  timeToSwitchDigits * 2}
+ 
+     ID = String(currentUser) + "_lettersPercents_" + digitToShow;
+     listItem = document.getElementById(ID);
+     previousPercent = parseFloat(listItem.innerHTML);
+     console.log(previousPercent);
+     if(previousPercent >= 0.95){
+         return 0;
+     }else if(previousPercent >= 0.80){
+         return timeToSwitchDigits * .4;
+     }else if(previousPercent >= 0.60){
+         return timeToSwitchDigits * .8;
+     }else{
+         return timeToSwitchDigits * 2;
+     }
+ }
 
 function CalculateReduceTime(){
     // if(currentUser == ""){ return  timeToSwitchDigits * 2}
