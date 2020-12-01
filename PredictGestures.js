@@ -1020,7 +1020,7 @@ function DrawLowerLeftPanel(){
     text(previousValueAverage.concat("%"),0, window.innerHeight * 10/12, window.innerWidth/4, window.innerHeight/6);
     
 
-    /*
+    
     //Top Left Side Header
     textSize(40);
     fill(100);
@@ -1052,7 +1052,7 @@ function DrawLowerLeftPanel(){
     var allUsersAverage = Math.trunc(CalculateAllUsersSessionsAverage() * 100).toString();
     text(allUsersAverage.concat("%"),window.innerWidth/4, window.innerHeight * 10/12, window.innerWidth/4, window.innerHeight/6);
 
-    */
+    
 }
 //returns a float
 function PreviousSesstionValue(){
