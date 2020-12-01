@@ -58,6 +58,7 @@ Leap.loop(controllerOptions, function(frame)
     }
 
 });
+
 function DetermineState(frame){
     if (frame.hands.length == 0){
         programState = 0;
@@ -92,6 +93,7 @@ function HandleState1(frame){
 function HandleState2(frame){
     HandleFrame(frame);
     DrawLowerRightPanel();
+    DrawLowerLeftPanel();
     if(isShowingNumbers){
         DetermineWhetherToSwitchDigits();
     }else{
@@ -150,7 +152,10 @@ function DrawArrowUp(){
      image(imgArrowAway,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
  }
 function TrainKNNIfNotDoneYet(){
-    if(!trainingCompleted){Train();}
+    if(!trainingCompleted){
+      //  Train();
+      trainingCompleted = true;
+    }
 }
 function SignInIfNotDoneYet(){
     if(!initSignIn){
@@ -965,6 +970,81 @@ function DrawLowerRightPanel(){
     }
     
 }
+function DrawLowerLeftPanel(){
+    var digitOrLetter = "Letter";
+    if(isShowingNumbers){
+        digitOrLetter = "Digit"
+    }
+    rectMode(CORNER);
+    textAlign(CENTER,CENTER);
+    stroke(0);
+    strokeWeight(2);
+    
+    //x y width height
+    textSize(40);
+    //Top Right Side Header---------------------------------------------------------------------------------------------------
+    fill(100);
+    rect(0, window.innerHeight/2, window.innerWidth/4, window.innerHeight/12);
+    fill(0);
+    text("Current ".concat(digitOrLetter),0, window.innerHeight/2, window.innerWidth/4, window.innerHeight/12);
+    //Top Left Side Header
+    fill(100);
+    rect(window.innerWidth/4, window.innerHeight/2, window.innerWidth/4, window.innerHeight/12);
+    fill(0);
+    text("Current Session Average",window.innerWidth/4, window.innerHeight/2, window.innerWidth/4, window.innerHeight/12);
+
+    //Top Right Side Value---------------------------------------------------------------------------------------------------
+    textSize(80);
+    fill(155);
+    rect(0, window.innerHeight * 7/12, window.innerWidth/4, window.innerHeight/6);
+    fill(0);
+    var currentSignedAverage = Math.trunc(m * 100).toString();
+    text(currentSignedAverage.concat("%"),0, window.innerHeight * 7/12, window.innerWidth/4, window.innerHeight/6);
+    //Top Left Side Value
+    fill(155);
+    rect(window.innerWidth/4, window.innerHeight * 7/12, window.innerWidth/4, window.innerHeight/6);
+    fill(0);
+    var currentSessionAverage = Math.trunc(CalculateUserSessionAverage(currentUsername) * 100).toString();
+    text(currentSessionAverage.concat("%"),window.innerWidth/4, window.innerHeight * 7/12, window.innerWidth/4, window.innerHeight/6);
+
+    //Bottom Right Side Header---------------------------------------------------------------------------------------------------
+    textSize(40);
+    fill(100);
+    rect(0, window.innerHeight * 3/4, window.innerWidth/4, window.innerHeight/12);
+    fill(0);
+    text("Previous Session ".concat(digitOrLetter),0, window.innerHeight * 3/4, window.innerWidth/4, window.innerHeight/12);
+    //Bottom Left Side Header
+    fill(100);
+    rect(window.innerWidth/4, window.innerHeight * 3/4, window.innerWidth/4, window.innerHeight/12);
+    fill(0);
+    text("All User's Session",window.innerWidth/4, window.innerHeight * 3/4, window.innerWidth/4, window.innerHeight/12);
+
+    //Bottom Right Side Value---------------------------------------------------------------------------------------------------
+    textSize(80);
+    fill(155);
+    rect(0, window.innerHeight * 10/12, window.innerWidth/4, window.innerHeight/6);
+    fill(0);
+    var previousValueAverage = Math.trunc(PreviousValue() * 100).toString();
+    text(previousValueAverage.concat("%"),0, window.innerHeight * 10/12, window.innerWidth/4, window.innerHeight/6);
+    //Bottom Left Side Value
+    fill(155);
+    rect(window.innerWidth/4, window.innerHeight * 10/12, window.innerWidth/4, window.innerHeight/6);
+    fill(0);
+    var allUsersAverage = Math.trunc(CalculateAllUsersSessionsAverage() * 100).toString();
+    text(allUsersAverage.concat("%"),window.innerWidth/4, window.innerHeight * 10/12, window.innerWidth/4, window.innerHeight/6);
+}
+//returns a float
+function PreviousValue(){
+
+}
+//takes current username returns a float
+function CalculateUserSessionAverage(currentUsername){
+
+}
+//returns a float
+function CalculateAllUsersSessionsAverage(){
+
+}
 
 function DetermineWhetherToSwitchDigits(){
     if(TimeToSwitchDigits()){
@@ -1084,7 +1164,7 @@ function CalculateTimeDeltaToSwitchDigitImage(){
 function CalculateTimeDeltaToSwitchLetterImage(){
     // if(currentUser == ""){ return  timeToSwitchDigits * 2}
  
-     ID = String(currentUser) + "_lettersPercents_" + digitToShow;
+     ID = String(currentUser) + "_lettersPercents_" + letterToShow;
      listItem = document.getElementById(ID);
      previousPercent = parseFloat(listItem.innerHTML);
      console.log(previousPercent);
