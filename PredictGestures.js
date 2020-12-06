@@ -58,6 +58,8 @@ Leap.loop(controllerOptions, function(frame)
         HandleState1(frame);
     }else if (programState==2) {
         HandleState2(frame);
+    }else if (programState==3) {
+        HandleState3(frame);
     }
 
 });
@@ -67,8 +69,10 @@ function DetermineState(frame){
         programState = 0;
     }else if(frame.hands.length >= 1 && HandIsUncentered()){
         programState = 1;
-    }else {
+    }else if(frame.hands.length >= 1 && !HandIsUncentered() && !KnowsTheLetters()){
         programState = 2;
+    }else {
+        programState = 3;
     }
     //console.log(programState);
 }
@@ -109,6 +113,24 @@ function HandleState2(frame){
         TestExtendedLetters();
     }
 }
+function HandleState3(frame){
+    HandleFrame(frame);
+    DrawLowerRightPanel();
+    DrawLowerLeftPanel();
+    DrawUpperRightPanelSpelling();
+    if(isShowingNumbers){
+        DetermineWhetherToSwitchDigits();
+    }else{
+        DetermineWhetherToSwitchLetters();
+    }
+   
+    if(isShowingNumbers){
+        TestExtended();
+    }else{
+        TestExtendedLetters();
+    }
+}
+
 function HandIsUncentered(){
     return HandIsTooFarToTheLeft() || 
     HandIsTooFarToTheRight() ||
@@ -116,6 +138,9 @@ function HandIsUncentered(){
     HandIsTooFarToTheHigh() ||
     HandIsTooFarToTheClose() ||
     HandIsTooFarToTheFar();
+}
+function KnowsTheLetters(){
+    return Math.trunc(CalculateUserSessionAverage(currentUser) * 100) > 90;
 }
 function HandIsTooFarToTheLeft(){
     return uncenteredX < 0.46;
@@ -135,7 +160,6 @@ function HandIsTooFarToTheClose(){
 function HandIsTooFarToTheFar(){
     return uncenteredZ < 0.46;
 }
-
 function DrawArrowRight(){
    image(imgArrowRight,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
 }
@@ -144,16 +168,16 @@ function DrawArrowLeft(){
 }
 function DrawArrowUp(){
     image(imgArrowUp,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
- }
+}
  function DrawArrowDown(){
      image(imgArrowDown,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
- }
+}
  function DrawArrowToward(){
     image(imgArrowToward,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
- }
+}
  function DrawArrowAway(){
      image(imgArrowAway,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
- }
+}
 function TrainKNNIfNotDoneYet(){
     if(!trainingCompleted){
       //  Train();
@@ -170,8 +194,6 @@ function SignInIfNotDoneYet(){
 function DrawImageToHelpUserPutTheirHandOverTheDevice(){
     image(imgWaiting,0,0,window.innerWidth/2,window.innerHeight/2);
 }
-
-
 function Train(){
     var start = new Date().getTime();
     console.log("training :");
@@ -308,14 +330,12 @@ function Train(){
     var time = end - start;
     console.log("training complete it took: ", time );
 }
-
 function Test(){
     //console.log("testing :");
     var currentFeatures = oneFrameOfData.reshape(120);
     var predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);  
     currentLabel = currentFeatures.get(currentFeatures.shape -1);
 }
-
 function TestExtended(){
     var r;
     //0
@@ -403,7 +423,6 @@ function TestExtended(){
     PredictionAccuracy(r);
     return r;
 }
-
 function TestExtendedLetters(){
     //console.log(extenedArray.tolist());
     var r = '';
@@ -521,7 +540,6 @@ function GotResults(err, result){
     //console.log();
     predictedClassLabels.set(testingSampleIndex,result.label);
 }
-
 function TrainHelper(train,n){
     CenterData();
     for(var i =0; i < train.shape[3]; i++){
@@ -534,14 +552,13 @@ function TrainHelper(train,n){
         knnClassifier.addExample(features,n);
     }
 }
-
 function HandleFrame(frame){
     if(frame.hands.length >= 1){
      var hand = frame.hands[0];
      var interactionBox = frame.interactionBox;
      HandleHand(hand, interactionBox);    
      }
- }
+}
  function HandleHand(hand, interactionBox){
      //Distal phalanges tips
      //Intermediate phalanges middle
@@ -561,7 +578,7 @@ function HandleFrame(frame){
          });
      }
     // console.log(extenedArray.toString());
- }
+}
  function HandleFinger(finger, boneType, interactionBox){
      
     var bones = finger.bones;
@@ -571,8 +588,7 @@ function HandleFrame(frame){
         }
     }); 
  
- }
- 
+}
  function HandleBone(bone, strokeW, fingerIndex, interactionBox){
     var normalizedPrevJoint = interactionBox.normalizePoint(bone.prevJoint, true);
     oneFrameOfData.set(fingerIndex,bone.type,0,normalizedPrevJoint[0]);
@@ -608,8 +624,7 @@ function HandleFrame(frame){
     line(nx,-ny + innerHeight,px, -py + innerHeight);
  
     CenterData();
- }
-
+}
  function TransformCoordinates (normalizedPosition){
     // Convert the normalized coordinates to span the canvas
     //scale to top left 
@@ -762,7 +777,6 @@ function Numbers(){
     isShowingNumbers = true;
     return false;
 }
-
 function IsNewUser(username,list){
     var usernameFound = false;
     var users = list.children;
@@ -814,6 +828,9 @@ function CreateLettersPercentsItem(username,list){
         itemLettersPercents.innerHTML = String(0);
         list.appendChild(itemLettersPercents);
     }
+}
+function DrawUpperRightPanelSpelling(){
+    image(imgASL3,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
 }
 function DrawLowerRightPanel(){
     if(isShowingNumbers){
@@ -1115,7 +1132,6 @@ function CalculateAllUsersSessionsAverage(){
     
     return  sum / names.length;
 }
-
 function DetermineWhetherToSwitchDigits(){
     if(TimeToSwitchDigits()){
         console.log("Time to Switch: ", m);
@@ -1165,14 +1181,13 @@ function SwitchLetters() {
     n=0;
     
 
-    if(lettersLearned != -1 && letterToShow != 26 && letterToShow <= lettersLearned){
+    if(lettersLearned != -1 && letterToShow != 25 && letterToShow <= lettersLearned){
         letterToShow++;
     }else{
         letterToShow = 0;
     }
 }
 function DigitLearned(){
-
     if(digitsLearned != 9 && digitsLearned + 1 == digitToShow && m >= 0.5){
         digitsLearned++;
         console.log("learned new digit: ", digitsLearned);
@@ -1182,10 +1197,8 @@ function DigitLearned(){
             listItem.innerHTML = String(digitsLearned);
       //  }
     }
-
 }
 function LetterLearned(){
-
     if(lettersLearned != 26 && lettersLearned + 1 == letterToShow && m >= 0.5){
         lettersLearned++;
         console.log("learned new letter: ", String.fromCharCode(97 + lettersLearned));
@@ -1193,7 +1206,6 @@ function LetterLearned(){
             listItem = document.getElementById(ID);
             listItem.innerHTML = String(digitsLearned);
     }
-
 }
 function TimeToSwitchDigits() {
     var currentTime = new Date();
@@ -1213,7 +1225,6 @@ function TimeToSwitchLetterImage() {
     var timeInSeconds = timeInMilliseconds / 1000;
     return timeInSeconds >= CalculateTimeDeltaToSwitchLetterImage();
 }
-
 function CalculateTimeDeltaToSwitchDigitImage(){
    // if(currentUser == ""){ return  timeToSwitchDigits * 2}
 
@@ -1247,8 +1258,7 @@ function CalculateTimeDeltaToSwitchLetterImage(){
      }else{
          return timeToSwitchDigits * 2;
      }
- }
-
+}
 function CalculateReduceTime(){
     // if(currentUser == ""){ return  timeToSwitchDigits * 2}
  
@@ -1266,7 +1276,6 @@ function CalculateReduceTime(){
         timeToSwitchDigits = 5;
      }
 }
-
 function CalculateReduceTimeLetters(){ 
      ID = String(currentUser) + "_lettersPercents_" + letterToShow;
      listItem = document.getElementById(ID);
