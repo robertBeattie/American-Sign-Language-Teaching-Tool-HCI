@@ -32,7 +32,6 @@ var uncenteredX;
 var uncenteredY;
 var uncenteredZ;
 
-
 var digitToShow = 0;
 var timeSinceLastDigitChange = new Date();
 var timeToSwitchDigits = 5;
@@ -46,6 +45,11 @@ var lettersLearned = -1;
 
 var previousDigitPercents = nj.zeros(10);
 var previousLetterPercents = nj.zeros(26);
+
+var spellingWordlength = 0;
+var spellingWordIndex = 0;
+
+var previousLetterToShow = 0;
 
 Leap.loop(controllerOptions, function(frame)
 {
@@ -117,7 +121,9 @@ function HandleState3(frame){
     HandleFrame(frame);
     DrawLowerRightPanel();
     DrawLowerLeftPanel();
-    DrawUpperRightPanelSpelling();
+    if(!isShowingNumbers){
+        DrawUpperRightPanelSpelling();
+    }
     if(isShowingNumbers){
         DetermineWhetherToSwitchDigits();
     }else{
@@ -140,7 +146,7 @@ function HandIsUncentered(){
     HandIsTooFarToTheFar();
 }
 function KnowsTheLetters(){
-    return Math.trunc(CalculateUserSessionAverage(currentUser) * 100) > 90;
+    return Math.trunc(CalculateUserSessionAverage(currentUser) * 100) > 80;
 }
 function HandIsTooFarToTheLeft(){
     return uncenteredX < 0.46;
@@ -830,7 +836,33 @@ function CreateLettersPercentsItem(username,list){
     }
 }
 function DrawUpperRightPanelSpelling(){
-    image(imgASL3,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+    //image(imgASL3,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+    var wordLength = currentUser.length; 
+
+    rectMode(CORNER);
+    textAlign(CENTER,CENTER);
+    stroke(0);
+    strokeWeight(2);
+
+    //for each 
+    for(var i =0; i<wordLength; i++){
+        var letter = currentUser.substring(i,i+1);
+        if(true){
+            ID = String(currentUser) + "_lettersPercents_" + (currentUser.charCodeAt(i) - 97).toString();
+            listItem = document.getElementById(ID);
+            previousPercent = parseFloat(listItem.innerHTML);
+            if(previousPercent >= .5){
+                fill('green');
+            } else{
+                fill('red');
+            }
+            //rect((window.innerWidth/2) + (i * 18 *(wordLength)), 0, window.innerWidth/(2 * wordLength) , window.innerHeight/12);
+            rect((window.innerWidth/2) + (i * (window.innerWidth/2)/wordLength),window.innerHeight/4,(window.innerWidth/2)/wordLength, window.innerHeight/12);
+        }   
+        textSize(40);
+        fill(0);
+        text(letter,(window.innerWidth/2) + (i * (window.innerWidth/2)/wordLength),window.innerHeight/4,(window.innerWidth/2)/wordLength, window.innerHeight/12);
+    }
 }
 function DrawLowerRightPanel(){
     if(isShowingNumbers){
@@ -1180,8 +1212,17 @@ function SwitchLetters() {
     //resets count of frames
     n=0;
     
+    previousLetterToShow = letterToShow;
+    if(programState == 3){
+        spellingWordlength = currentUser.length;
+        if(spellingWordIndex + 1 == spellingWordlength || (spellingWordIndex == 0 && letterToShow != currentUser.charCodeAt(0) - 97)){
+            spellingWordIndex = 0;
+        }else{
+            spellingWordIndex++;
+        }
+        letterToShow = currentUser.charCodeAt(spellingWordIndex) - 97;
 
-    if(lettersLearned != -1 && letterToShow != 25 && letterToShow <= lettersLearned){
+    }else if(lettersLearned != -1 && letterToShow != 25 && letterToShow <= lettersLearned){   
         letterToShow++;
     }else{
         letterToShow = 0;
