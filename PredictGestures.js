@@ -446,7 +446,7 @@ function TestExtendedLetters(){
     extenedArray.get(2) === 0 &&
     extenedArray.get(3) === 0 &&
     extenedArray.get(4) === 0 ){
-        r += 'dgxz';
+        r += 'dgxzq';
     }else
     //hkruv
     if( extenedArray.get(0) === 0 &&
@@ -454,7 +454,7 @@ function TestExtendedLetters(){
     extenedArray.get(2) === 1 &&
     extenedArray.get(3) === 0 &&
     extenedArray.get(4) === 0 ){
-        r += 'hkruv';
+        r += 'hkruvp';
     }else
     //3
     if( extenedArray.get(0) === 1 &&
@@ -462,7 +462,7 @@ function TestExtendedLetters(){
     extenedArray.get(2) === 1 &&
     extenedArray.get(3) === 0 &&
     extenedArray.get(4) === 0 ){
-        r += '';
+        r += 'kp';
     }else
     //b
     if( extenedArray.get(0) === 0 &&
@@ -1090,7 +1090,7 @@ function DrawLowerLeftPanel(){
     fill(100);
     rect(window.innerWidth/4, window.innerHeight * 3/4, window.innerWidth/4, window.innerHeight/12);
     fill(0);
-    text("All User's Session",window.innerWidth/4, window.innerHeight * 3/4, window.innerWidth/4, window.innerHeight/12);
+    text("All User's Sessions",window.innerWidth/4, window.innerHeight * 3/4, window.innerWidth/4, window.innerHeight/12);
     
     
     //Bottom Left Side Value
